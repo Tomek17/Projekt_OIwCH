@@ -1,15 +1,17 @@
 """Command-line entry point: `nacacfd <command> ...`.
 
-Status: argument parsing works; every command except `validate-config` is a stub (F2+).
+Status: `validate-config`, `run` (file meshes) and `qa` implemented; `mesh` and `report` are stubs.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
+from pathlib import Path
 
 from nacacfd import __version__
-from nacacfd.config import load_experiment
+from nacacfd.config import REPO_ROOT, load_experiment
 
 
 def _not_implemented(args: argparse.Namespace) -> int:
@@ -23,6 +25,35 @@ def _validate_config(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run(args: argparse.Namespace) -> int:
+    from nacacfd.runner.case import case_name, run_case
+
+    exp = load_experiment(args.target)
+    out = Path(args.runs_dir) / exp.name
+    worst = 0
+    for alpha in exp.alpha_deg:
+        r = run_case(exp, alpha, out / case_name(alpha))
+        print(f"{exp.name}/{case_name(alpha)}: status={r['status']} CL={r.get('CL')} CD={r.get('CD')} "
+              f"CM={r.get('CM')} iterations={r.get('iterations')} wall={r['wall_time_s']} s")
+        if r["status"] != "valid":
+            worst = 1
+    return worst
+
+
+def _qa(args: argparse.Namespace) -> int:
+    from nacacfd.qa.report import run_case_gates
+
+    exp_dir = Path(args.target)
+    worst = 0
+    for case_dir in sorted(p for p in exp_dir.iterdir() if (p / "results.json").exists()):
+        required = json.loads((case_dir / "qa_report.json").read_text())["required"] \
+            if (case_dir / "qa_report.json").exists() else []
+        status = run_case_gates(case_dir, required)
+        print(f"{case_dir}: {status}")
+        worst = worst or int(status != "valid")
+    return worst
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="nacacfd", description=__doc__)
     parser.add_argument("--version", action="version", version=f"nacacfd {__version__}")
@@ -32,10 +63,17 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("experiment")
     p.set_defaults(func=_validate_config)
 
+    p = sub.add_parser("run", help="run all cases of an experiment (mesh + solve + QA); exit 1 unless all valid")
+    p.add_argument("target")
+    p.add_argument("--runs-dir", default=str(REPO_ROOT / "runs"))
+    p.set_defaults(func=_run)
+
+    p = sub.add_parser("qa", help="re-run per-case QA gates on runs/<experiment>")
+    p.add_argument("target")
+    p.set_defaults(func=_qa)
+
     for name, help_text in [
         ("mesh", "generate geometry and mesh for an experiment"),
-        ("run", "run all cases of an experiment (mesh + solve + postprocess + QA)"),
-        ("qa", "run QA gates on an existing runs/<experiment> directory"),
         ("report", "build polars, tables and figures from runs/<experiment>"),
     ]:
         p = sub.add_parser(name, help=help_text)

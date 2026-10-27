@@ -17,6 +17,7 @@ DEFAULT_THRESHOLDS = REPO_ROOT / "config" / "qa_thresholds.yaml"
 
 TURBULENCE_MODELS = {"SA", "SST"}
 MESH_LEVELS = {"coarse", "medium", "fine"}
+MESH_SOURCES = {"file", "gmsh"}
 _NACA_RE = re.compile(r"^NACA\d{4,5}$")
 
 
@@ -78,6 +79,14 @@ def load_experiment(path: str | Path) -> Experiment:
     if level not in MESH_LEVELS:
         raise ConfigError(f"{path}: mesh_level must be one of {sorted(MESH_LEVELS)}")
 
+    mesh = dict(data.get("mesh") or {})
+    source = mesh.get("source", "gmsh")
+    if source not in MESH_SOURCES:
+        raise ConfigError(f"{path}: mesh.source must be one of {sorted(MESH_SOURCES)}")
+    if source == "file" and not (mesh.get("path") and mesh.get("sha256")):
+        raise ConfigError(f"{path}: mesh.source 'file' needs mesh.path and mesh.sha256")
+    mesh["source"] = source
+
     gates = _require(data, "required_gates", str(path))
     if not isinstance(gates, list) or not gates:
         raise ConfigError(f"{path}: required_gates must be a non-empty list")
@@ -92,7 +101,7 @@ def load_experiment(path: str | Path) -> Experiment:
         mesh_level=level,
         required_gates=[str(g) for g in gates],
         solver=dict(data.get("solver") or {}),
-        mesh=dict(data.get("mesh") or {}),
+        mesh=mesh,
         notes=str(data.get("notes") or ""),
     )
 
