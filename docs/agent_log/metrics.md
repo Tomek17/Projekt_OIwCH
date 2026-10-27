@@ -56,3 +56,11 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | 001 | Gmsh medium, design y+ 1.0, 35,664 el. | 1001 | 77.0 s | invalid | max y+ 2.19 |
 | final | Gmsh medium, design y+ 0.5, 37,674 el. | 1001 | 81.1 s | valid (per-case gates) | max y+ 1.10 |
 | Mesh generation | | | ~1 s | | Gmsh, single thread |
+
+## F4 (grid study), agent cloud container, 4 MPI ranks
+| Case | Wall (SU2) | Status |
+|---|---|---|
+| alpha 5 fine / medium / coarse | 178 s / 80 s / 39 s | invalid (GCI fail, CL divergent) |
+| alpha 10 fine / medium / coarse | 220 s / 88 s / 40 s | incomplete / incomplete / invalid (y+ 2.22) |
+| Whole experiment (6 cases + meshing + GCI) | 653 s | one command: `scripts/run_experiment.sh experiments/naca0012_gci.yaml` |
+| Agent errors in this phase | 1 (X-008) | |

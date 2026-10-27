@@ -70,3 +70,31 @@ Format: ID, date, what went wrong, how it was detected (gate / test / human / ag
   (standard closed trailing edge vs the TMR-modified section the SU2 grids appear to use), far-field distance
   (100 chords vs unknown for the SU2 grid), resolution and mesh type. Both cases pass all per-case gates, which
   shows that per-case gates alone do not establish an accurate answer: GCI (F4) and validation (F5) are needed.
+
+## X-008 (2026-10-27): F4 code commit made while the in-image tests did not run
+- What: the Docker daemon had stopped; the test command was piped into `tail`, so the pipeline exit code
+  was the one from `tail` (0) and the commit went ahead although pytest never ran.
+- Detected by: the agent, noticing the output contained a Docker connection error instead of a pytest summary.
+- Fix: restarted dockerd and ran the tests in the image afterwards (87 passed); no code change was needed.
+- Lesson: same family as X-007. Use `set -o pipefail` (or no pipe) before a commit gated on tests.
+
+## Finding F4-1 (2026-10-27): grid study on own Gmsh meshes, NACA 0012, M 0.15, Re 6e6, SA
+Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell counts: r21 = 1.414, r32 = 1.408).
+| alpha | Level | Cells | max y+ | CL | CD | Per-case status |
+|---|---|---|---|---|---|---|
+| 5 | fine | 75,326 | 0.78 | 0.556044 | 0.0097822 | gates passed |
+| 5 | medium | 37,674 | 1.10 | 0.553987 | 0.0103197 | gates passed |
+| 5 | coarse | 19,014 | 1.55 | 0.552014 | 0.0116206 | gates passed |
+| 10 | fine | 75,326 | 1.12 | 1.087710 | 0.013919 | gates passed |
+| 10 | medium | 37,674 | 1.58 | 1.081225 | 0.015371 | gates passed |
+| 10 | coarse | 19,014 | 2.22 | 1.072695 | 0.018507 | invalid (wall_yplus, max at the leading edge, suction side) |
+- alpha 5, CD: monotonic (R = 0.41), observed order p = 2.61, GCI_fine = 4.67 % (limit 5 %) -> would pass.
+- alpha 5, CL: R = e21/e32 = 1.04, i.e. the change does not shrink with refinement -> "divergent", no GCI can be
+  computed -> GCI gate FAIL -> all three alpha 5 cases `invalid`. The CL change per level is small (~0.37 %),
+  but the method cannot bound the error when the sequence is not converging.
+- alpha 10: GCI gate NOT_RUN because the coarse case failed y+ -> fine and medium `incomplete`.
+- Observation only (not validation): the extrapolated CD at alpha 5 (0.009417) is close to the CD on the
+  SU2 TestCases 449x129 grid (0.009413, F2-2). This does not show either number is correct.
+- Not done: the cause of the non-converging CL is unknown. Candidates (none tested): the far-field
+  distance is not refined (fixed 100 chords, so a far-field error does not shrink); the hybrid mesh is not a
+  geometrically similar refinement; the levels are still outside the asymptotic range.

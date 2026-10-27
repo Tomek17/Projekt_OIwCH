@@ -1,0 +1,147 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 73.806,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 73.806,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00114,
+            "max": 5917.53
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.00011,
+            "max": 3110.16
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci/a+05.00_coarse/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 1.547779443657937,
+        "mean": 0.7601727052710832,
+        "n_points": 280
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci/a+05.00_coarse/surface_flow.csv",
+      "reason": "max y+ 1.548 above target 1.0 but below fail limit 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1001,
+        "residual_drop_orders": 9.53233725,
+        "rms_rho_first": -4.53484879,
+        "rms_rho_last": -14.06718604,
+        "cl_relative_range": 9.367512733584316e-07,
+        "cd_relative_range": 9.896185489170771e-08
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci/a+05.00_coarse/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 0.5520142876,
+        "CD": 0.01162063883,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci/a+05.00_coarse/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "fail",
+      "value": {
+        "cells": [
+          75326,
+          37674,
+          19014
+        ],
+        "CL": {
+          "r21": 1.4140070872857404,
+          "r32": 1.4076157641473668,
+          "e21": -0.002056400600000008,
+          "e32": -0.0019728189999999035,
+          "phi": [
+            0.5560435072,
+            0.5539871066,
+            0.5520142876
+          ],
+          "h": [
+            0.0036435736030735345,
+            0.005152038897793219,
+            0.00725209117003416
+          ],
+          "R": 1.042366583046954,
+          "convergence": "divergent",
+          "p": null,
+          "phi_ext": null,
+          "gci_fine": null
+        },
+        "CD": {
+          "r21": 1.4140070872857404,
+          "r32": 1.4076157641473668,
+          "e21": 0.0005374287410000005,
+          "e32": 0.0013009788300000005,
+          "phi": [
+            0.009782231259,
+            0.01031966,
+            0.01162063883
+          ],
+          "h": [
+            0.0036435736030735345,
+            0.005152038897793219,
+            0.00725209117003416
+          ],
+          "R": 0.4130956850389335,
+          "convergence": "monotonic",
+          "p": 2.609559690826385,
+          "phi_ext": 0.009416513841792208,
+          "e_a": 0.05493927988111577,
+          "gci_fine": 0.04673236191274338
+        }
+      },
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25
+      },
+      "evidence": "/work/runs/naca0012_gci/gci_a+05.00.json",
+      "reason": "CL: divergent convergence, no GCI"
+    }
+  ]
+}

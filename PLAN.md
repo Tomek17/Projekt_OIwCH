@@ -36,7 +36,8 @@ preliminary convergence and y+ gates computed and stored; compared with referenc
 input is REJECTED (truncated run, too thick first cell, oscillating cL, ...).
 
 ## F4. Grid independence / GCI (~1 day + compute)
-- [ ] 3 mesh levels, constant refinement ratio, procedure after Celik et al. (2008), citation to be verified
+- [x] 3 mesh levels, constant refinement ratio, procedure after Celik et al. (2008), citation to be verified (gate implemented, study run: see Finding F4-1)
+- [ ] Grid-converged answer: alpha 5 CL not converging (GCI FAIL), alpha 10 coarse fails y+ (NOT_RUN); next step to be decided by the student
 **Acceptance:** GCI for cL and cD at two angles of attack (to be confirmed); observed order p reported;
 non-monotonic convergence is reported as such instead of forcing a GCI number.
 
