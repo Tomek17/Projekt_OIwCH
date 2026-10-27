@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(data/reference/**)",
+      "Write(data/reference/**)",
+      "Edit(config/qa_thresholds.yaml)",
+      "Write(config/qa_thresholds.yaml)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_protected.py\"" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/log_solver_run.py\"" }
+        ]
+      }
+    ]
+  }
+}
