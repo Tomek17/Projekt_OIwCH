@@ -37,7 +37,8 @@ input is REJECTED (truncated run, too thick first cell, oscillating cL, ...).
 
 ## F4. Grid independence / GCI (~1 day + compute)
 - [x] 3 mesh levels, constant refinement ratio, procedure after Celik et al. (2008), citation to be verified (gate implemented, study run: see Finding F4-1)
-- [ ] Grid-converged answer: alpha 5 CL not converging (GCI FAIL), alpha 10 coarse fails y+ (NOT_RUN); next step to be decided by the student
+- [x] alpha 5: GCI PASS on xfine/fine/medium (Finding F4b-1); far field 100 chords checked (F4b-2)
+- [ ] alpha 10 (and the polar angles) with the 4-level setup
 **Acceptance:** GCI for cL and cD at two angles of attack (to be confirmed); observed order p reported;
 non-monotonic convergence is reported as such instead of forcing a GCI number.
 

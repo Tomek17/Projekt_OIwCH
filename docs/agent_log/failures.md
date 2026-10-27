@@ -98,3 +98,47 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Not done: the cause of the non-converging CL is unknown. Candidates (none tested): the far-field
   distance is not refined (fixed 100 chords, so a far-field error does not shrink); the hybrid mesh is not a
   geometrically similar refinement; the levels are still outside the asymptotic range.
+
+## X-009 (2026-10-27): far-field sensitivity test was confounded by the agent's own mesh code
+- What: the triangle size field used `DistMax = farfield radius`, so changing the radius also changed the
+  mesh near the airfoil (triangles 6,200 / 15,864 / 48,104 for R = 50 / 100 / 200; quads identical).
+  The first R = 50 / 200 runs mixed far-field and resolution effects (CD 0.01127 vs 0.01008, looked like a
+  large far-field effect).
+- Detected by: the agent, comparing element counts before interpreting CL/CD. No gate can catch this:
+  every case passed all per-case gates.
+- Fix: new mesh parameter `size_growth_distance_chords` (default 100, R = 100 meshes unchanged, D-019).
+  Confounded runs kept in `runs/naca0012_farfield_r*/_attempts/001_confounded/` and rerun.
+- Lesson: in a sensitivity study, check that only the intended input changed (cell counts per region).
+
+## X-010 (2026-10-27): grid-study bookkeeping errors found in the first 4-level run
+- (a) A level outside the three GCI levels (coarse) inherited the GCI PASS and was marked `valid`, although
+  the GCI says nothing about it. Fix: such levels get gci NOT_RUN -> `incomplete` (D-018).
+- (b) The exit code of `nacacfd run` used the per-case status before the GCI (always `incomplete`), so it
+  was 1 even when everything ended `valid`. Fix: the final statuses decide the exit code.
+- Detected by: the agent, reading the run log. Both fixed before reporting.
+
+## Finding F4b-1 (2026-10-27): 4-level grid study, alpha 5 (student's choice: diagnose before changing method)
+| Level | Cells | max y+ | Iterations | Wall | CL | CD |
+|---|---|---|---|---|---|---|
+| xfine | 150,640 | 0.55 | 1262 | 501 s | 0.556920 | 0.0095234 |
+| fine | 75,328 | 0.78 | 1054 | 174 s | 0.556044 | 0.0097822 |
+| medium | 37,674 | 1.10 | 1001 | 78 s | 0.553987 | 0.0103197 |
+| coarse | 19,014 | 1.55 | 1001 | 38 s | 0.552012 | 0.0116206 |
+- GCI on xfine/fine/medium: CL monotonic (R = 0.43), p = 2.46, GCI_fine = 0.15 %; CD monotonic (R = 0.48),
+  p = 2.11, GCI_fine = 3.15 %. Gate PASS -> xfine, fine, medium `valid`; coarse `incomplete` (outside the triplet).
+- Interpretation (agent's reading, not proven): the coarse level was outside the asymptotic range for CL;
+  with it dropped the sequence converges with p close to the formal 2nd order.
+- "valid" means per-case gates + GCI passed. Nothing is validated against experiment yet (F5).
+- Side observation: the fine mesh had 75,328 cells here vs 75,326 in naca0012_gci with the same inputs, and
+  CL differed by 2e-7. Gmsh meshing is not bit-for-bit reproducible across runs in this setup (cause unknown).
+
+## Finding F4b-2 (2026-10-27): far-field radius, medium mesh, alpha 5 (after the X-009 fix)
+| R [chords] | Elements | CL | CD |
+|---|---|---|---|
+| 50 | 36,502 | 0.553701 | 0.0104331 |
+| 100 | 37,674 | 0.553987 | 0.0103197 |
+| 200 | 39,832 | 0.554640 | 0.0102809 |
+- 100 -> 200 chords: CL +0.12 %, CD -0.37 %. Smaller than the discretisation error of CD (GCI 3.15 %), of the
+  same order as the CL GCI (0.15 %). The far field is not the cause of the divergent CL in F4-1 (a fixed
+  far-field error is a constant offset and cancels in the level-to-level differences anyway).
+- Not done: R = 400; no point-vortex far-field correction. Default stays 100 chords.

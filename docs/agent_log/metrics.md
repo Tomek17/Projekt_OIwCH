@@ -64,3 +64,11 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | alpha 10 fine / medium / coarse | 220 s / 88 s / 40 s | incomplete / incomplete / invalid (y+ 2.22) |
 | Whole experiment (6 cases + meshing + GCI) | 653 s | one command: `scripts/run_experiment.sh experiments/naca0012_gci.yaml` |
 | Agent errors in this phase | 1 (X-008) | |
+
+## F4b (diagnosis of the CL divergence), agent cloud container, 4 MPI ranks
+| Run | Wall | Status |
+|---|---|---|
+| far field R 50 / 200, attempt 001 (confounded, X-009) | 67 s / 144 s (whole experiment) | archived |
+| far field R 50 / 200, final | 79 s / 84 s (SU2) | valid / valid |
+| 4-level study, alpha 5 | 799 s whole experiment (xfine alone 501 s) | GCI PASS; 3 valid, coarse incomplete |
+| Agent errors in this phase | 2 (X-009, X-010) | both detected by the agent before reporting |

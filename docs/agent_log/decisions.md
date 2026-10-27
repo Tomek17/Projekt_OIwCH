@@ -108,3 +108,13 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 - A non-monotonic sequence (oscillatory or divergent) is a FAIL, not a pass with a warning, because no error
   bound exists then. The agent did NOT relax this after the alpha 5 CL failure; that is the student's decision.
 - Effective refinement ratio uses h = (1/N)^(1/2) from cell counts, as required for unstructured meshes (D-015).
+
+## D-018 (2026-10-27): GCI uses the three finest levels of a study
+- A study may list more than three levels; the GCI gate uses the three finest (Celik et al. is a 3-grid
+  procedure). Other levels get gci NOT_RUN (status `incomplete`) so they never inherit a PASS (X-010).
+- Student's decision (card, 2026-10-27): diagnose with a far-field test + a 4th level before changing the
+  mesh method or the criteria. No threshold was changed.
+
+## D-019 (2026-10-27): mesh size growth distance separate from the far-field radius
+- New parameter `size_growth_distance_chords` (default 100) so a far-field test changes only the outer
+  region (X-009). With the default, all earlier 100-chord meshes are unchanged.
