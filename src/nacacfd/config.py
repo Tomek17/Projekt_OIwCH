@@ -16,7 +16,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_THRESHOLDS = REPO_ROOT / "config" / "qa_thresholds.yaml"
 
 TURBULENCE_MODELS = {"SA", "SST"}
-MESH_LEVELS = {"coarse", "medium", "fine"}
+MESH_LEVELS = {"coarse", "medium", "fine", "xfine"}
 MESH_SOURCES = {"file", "gmsh"}
 GEOMETRY_VARIANTS = {"standard_closed_te", "standard_open_te"}
 _NACA_RE = re.compile(r"^NACA\d{4,5}$")

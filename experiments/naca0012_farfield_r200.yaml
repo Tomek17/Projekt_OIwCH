@@ -1,0 +1,18 @@
+# F4b: far-field sensitivity, medium mesh, alpha 5. Only farfield_radius_chords differs from naca0012_a5_smoke
+# (100 chords). Compare CL/CD between radii 50 / 100 / 200 chords.
+name: naca0012_farfield_r200
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [5.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: medium
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 200.0
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
+notes: "F4b far-field sensitivity (radius 200 chords)."

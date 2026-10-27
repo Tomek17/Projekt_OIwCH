@@ -45,15 +45,21 @@ def _run(args: argparse.Namespace) -> int:
 
 
 def _gci_for(exp, out: Path) -> int:
+    from nacacfd.airfoil.mesh_gmsh import LEVELS
     from nacacfd.config import load_thresholds
     from nacacfd.qa.gci import check_gci
     from nacacfd.qa.report import run_case_gates
     from nacacfd.runner.case import case_name
 
     thr = load_thresholds()
+    # The GCI uses the three finest levels of the study (Celik et al. 2008 is a 3-grid procedure).
+    gci_levels = tuple(sorted(exp.mesh_levels, key=LEVELS.get)[:3])
+    if len(gci_levels) < 3:
+        print(f"GCI needs 3 mesh levels, got {list(gci_levels)}", flush=True)
+        return 1
     worst = 0
     for alpha in exp.alpha_deg:
-        g = check_gci(out, thr, case_name(alpha), levels=("fine", "medium", "coarse"))
+        g = check_gci(out, thr, case_name(alpha), levels=gci_levels)
         print(f"GCI {case_name(alpha)}: {g.outcome.value} {g.reason}", flush=True)
         for level in exp.mesh_levels:
             case = out / f"{case_name(alpha)}_{level}"
