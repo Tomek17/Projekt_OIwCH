@@ -1,20 +1,18 @@
-# First real task (F2): one case end to end.
-# Values marked TODO are initial guesses to be checked against the NASA TMR case definition.
+# F2b: one case end to end on our own Gmsh mesh (geometry -> mesh -> SU2 -> QA).
+# Compare with the external-mesh baselines naca0012_a5_su2grid*.yaml.
 name: naca0012_a5_smoke
 airfoil: NACA0012
-geometry_variant: tmr_closed_te   # TODO F2: confirm definition from the TMR source
+geometry_variant: standard_closed_te   # NASA TMR variant not implemented (definition not verified)
 alpha_deg: [5.0]
-reynolds: 6.0e6                    # based on chord
+reynolds: 6.0e6
 mach: 0.15
 turbulence_model: SA
 mesh_level: medium
 mesh:
+  source: gmsh
   target_yplus: 1.0
-  farfield_radius_chords: null     # TODO F2: choose and document
+  farfield_radius_chords: 100.0
 solver:
-  solver: RANS                     # compressible RANS, as the TMR case
-  freestream_temperature_K: null   # TODO F2: take from the TMR case definition
-  max_iterations: null             # TODO F2
-  cfl: null                        # TODO F2
+  n_procs: 4
 required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
-notes: "Smoke test. Not validated until the validation gate exists (F5)."
+notes: "Smoke test on our own mesh. Not validated (no validation gate yet)."

@@ -1,6 +1,6 @@
 """Run one case end to end inside the container: mesh -> config -> SU2_CFD -> results -> QA -> status.
 
-Status: implemented (F2) for meshes from a file (mesh.source: file). Gmsh meshes: not yet.
+Status: implemented (F2) for meshes from a file (mesh.source: file) and from Gmsh (mesh.source: gmsh).
 """
 
 from __future__ import annotations
@@ -36,10 +36,25 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _gmsh_mesh(experiment, case_dir: Path) -> Path:
+    from nacacfd.airfoil.mesh_gmsh import build_mesh, mesh_options, mesh_statistics
+    from nacacfd.airfoil.naca import naca4_coordinates
+
+    opts = mesh_options(experiment.mesh, experiment.mesh_level, experiment.reynolds)
+    closed = experiment.geometry_variant == "standard_closed_te"
+    upper, lower = naca4_coordinates(experiment.airfoil, 2 * opts["n_surface_points_eff"] + 1, closed_te=closed)
+    t0 = time.monotonic()
+    path = build_mesh(upper, lower, experiment.mesh_level, case_dir, opts)
+    info = {"generator": "gmsh", "geometry_variant": experiment.geometry_variant, "options": opts,
+            "statistics": mesh_statistics(path), "wall_time_s": round(time.monotonic() - t0, 2)}
+    (case_dir / "mesh_info.json").write_text(json.dumps(info, indent=2) + "\n")
+    return path
+
+
 def prepare_mesh(experiment, case_dir: Path) -> Path:
     mesh = experiment.mesh
-    if mesh["source"] != "file":
-        raise NotImplementedError("TODO F2b: Gmsh meshes (mesh.source: gmsh)")
+    if mesh["source"] == "gmsh":
+        return _gmsh_mesh(experiment, case_dir)
     src = (REPO_ROOT / mesh["path"]).resolve()
     if not src.exists():
         raise FileNotFoundError(f"{src} not found; run scripts/fetch_meshes.sh")
@@ -90,6 +105,6 @@ def run_case(experiment, alpha_deg: float, case_dir) -> dict:
 
     meta = collect_metadata(case_dir, started_utc=started, finished_utc=utc_now(), command=cmd,
                             su2=read_su2_version(case_dir / "solver.log"), mesh_file=mesh_path.name,
-                            mesh_sha256=experiment.mesh.get("sha256"))
+                            mesh_sha256=_sha256(mesh_path))
     (case_dir / "metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     return json.loads((case_dir / "results.json").read_text()) | {"status": status}
