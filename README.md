@@ -6,7 +6,7 @@ Research question: can an AI agent (Claude Code) autonomously run a reproducible
 workflow in the cloud, and what architecture is needed to trust its results?
 
 ## Status
-Skeleton only (phase F0). The CFD pipeline is **not implemented yet**: most functions raise
+F1 done: the Docker image builds and contains SU2 + Gmsh. The CFD pipeline is **not implemented yet**: most functions raise
 `NotImplementedError`. See [PLAN.md](PLAN.md).
 
 ## Layout
@@ -25,7 +25,8 @@ Skeleton only (phase F0). The CFD pipeline is **not implemented yet**: most func
 
 ## Quickstart (planned; does not work yet)
 ```bash
-docker build -t nacacfd -f docker/Dockerfile .          # F1
+docker build -t nacacfd -f docker/Dockerfile .          # works (F1)
+scripts/check_image.sh nacacfd                           # works (F1)
 docker run --rm -v "$PWD":/work -w /work nacacfd \
     nacacfd run experiments/naca0012_a5_smoke.yaml       # F2
 ```

@@ -20,3 +20,13 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | Hook scripts | tested by unit tests (subprocess with hook-like JSON) |
 | Hooks in a live Claude Code session | NOT verified: the session that wrote them had not loaded the repo settings (a probe command that the guard should block was not blocked) |
 | Docker image | not built (F1) |
+
+## F1 (Docker image), agent cloud container, 4 vCPU
+| Item | Value |
+|---|---|
+| Build attempts | 3 (1 failed: X-002; 1 from the spec: 294 s; 1 from the lock: 227 s) |
+| Build time includes | package download + layer export (export alone ~158 s in the first successful build) |
+| Image size (uncompressed) | 5,313,091,347 bytes (~5.3 GB) |
+| Image ID (lock build) | sha256:9c7ef367c0330a819178d84648e29296668b44145f2b7514ee258876726ddb9e |
+| Verified inside image | SU2 v8.5.0, Gmsh 4.15.2 (CLI + Python), Open MPI 5.0.11, Python 3.11.18, pytest 60 passed |
+| Not verified | an actual SU2 run; build on the student's laptop |

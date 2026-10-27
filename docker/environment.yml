@@ -8,7 +8,7 @@ dependencies:
   - python=3.11
   - su2=8.5.0
   - gmsh=4.15.2
-  - python-gmsh=4.15.2   # TODO F1: check the exact package name of the Python API on conda-forge
+  - python-gmsh=4.15.2
   - numpy
   - scipy
   - pandas

@@ -44,3 +44,20 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 - Decision: thresholds proposed in the plan go into `config/qa_thresholds.yaml` as starting values.
   Validation tolerance and aspect-ratio limit stay undefined until data is seen (after F2/F5).
 - Decided by: the student (answer to question 5), to be revisited after F2.
+
+## D-007 (2026-10-27): Image built from an explicit lock file, base image pinned by digest
+- Decision: `environment.yml` is the human-readable spec; the image installs `environment.lock.txt`
+  (exact URLs + md5 of 322 packages); `FROM mambaorg/micromamba:2.3.0@sha256:d008b261...`.
+- Reasoning: reproducibility is part of the thesis; a version spec alone can resolve differently later.
+- Check: rebuilding from the lock and re-exporting gives the same 322 packages (order differs). Tested.
+- Alternatives: version spec only (simpler, not reproducible); conda-lock tool (one more tool to explain).
+
+## D-008 (2026-10-27): Mounted repository code takes precedence in the container (PYTHONPATH=/work/src)
+- Reasoning: during development the repo is mounted at /work; the git hash recorded for a run must match the
+  code that actually ran, not a copy baked into the image at build time.
+- Trade-off: a stale image + new repo code can mix if Python dependencies change; `metadata.json` will record
+  both the git hash and the image ID (F2).
+
+## D-009 (2026-10-27): Proxy CA passed as a BuildKit secret, never baked into the image
+- Reasoning: the agent's cloud container intercepts TLS; the student's laptop and a cloud VM do not.
+  A build secret works in both cases and leaves no trace in the image.
