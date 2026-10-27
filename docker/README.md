@@ -6,6 +6,9 @@
 | `environment.yml` | human-readable spec (what we want: Python 3.11, SU2 8.5.0, Gmsh 4.15.2, ...) |
 | `environment.lock.txt` | exact package URLs + md5 that the image is built from (322 packages) |
 
+Requires BuildKit (the Dockerfile uses `RUN --mount`). Ubuntu's `docker.io` package does not include it:
+install `docker-buildx` (`sudo apt install -y docker-buildx`). Docker Desktop includes it.
+
 Build and check (from the repo root):
 ```bash
 docker build -t nacacfd -f docker/Dockerfile .

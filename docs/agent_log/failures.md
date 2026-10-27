@@ -17,3 +17,13 @@ Format: ID, date, what went wrong, how it was detected (gate / test / human / ag
 - Detected by: the build itself (exit code 1).
 - Fix: optional `--secret id=extra_ca` in the Dockerfile (D-009). Second build succeeded.
 - Lesson: "reachable from the host" is not "reachable from inside the build"; test the real path.
+
+## X-003 (2026-10-27): Dockerfile needed BuildKit, which the student's Docker did not have
+- What: the F1 Dockerfile uses `RUN --mount=type=secret` (BuildKit). Ubuntu's `docker.io` package ships without
+  buildx, so `docker build` on the student's laptop used the legacy builder and stopped at step 3/10:
+  "the --mount option requires BuildKit".
+- Detected by: the student's first build on the target machine (screenshot), ~25 min after the PR was merged.
+- Root cause: the agent tested the build only in its own cloud container, where BuildKit was available,
+  and declared the Dockerfile tested without testing it on the target environment.
+- Fix: `sudo apt install -y docker-buildx`; requirement added to docker/README.md, runbook and CLAUDE.md.
+- Lesson: "tested" must name WHERE it was tested. F1 was tested in the agent's environment, not the target one.
