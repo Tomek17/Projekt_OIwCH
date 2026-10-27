@@ -1,0 +1,20 @@
+{
+  "experiment": "naca0012_a5_smoke",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 76.96,
+  "n_procs": 4,
+  "CL": 0.5542441026,
+  "CD": 0.0102261383,
+  "CM": -0.00212437719,
+  "iterations": 1001,
+  "solver_reported_converged": true,
+  "status": "invalid",
+  "status_reasons": [
+    "wall_yplus: FAIL: max y+ 2.186 > 2.0"
+  ]
+}

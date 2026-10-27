@@ -24,7 +24,8 @@ the hook that blocks manual `"status": "valid"` and edits of protected files is 
 ## F2. One case end to end: NACA 0012, alpha = 5 deg (1-2 days, biggest risk)
 - [x] F2a: SU2 config from template, run, cL/cD/cM, results/qa_report/metadata.json, on external SU2 TestCases meshes
 - [x] F2a: first versions of the mesh, y+, convergence and physics gates
-- [ ] F2b: NACA geometry + our own Gmsh boundary-layer mesh
+- [x] F2b: NACA geometry + our own Gmsh boundary-layer mesh (hybrid)
+- [ ] Repeat the smoke case on the student's laptop (time per case on 8 cores)
 **Acceptance:** one command `nacacfd run experiments/naca0012_a5_smoke.yaml`; all outputs machine-readable;
 preliminary convergence and y+ gates computed and stored; compared with reference data if available
 (otherwise marked "not validated"); wall time of one case on N cores measured.

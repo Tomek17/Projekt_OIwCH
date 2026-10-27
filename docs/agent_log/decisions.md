@@ -87,3 +87,18 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 ## D-014 (2026-10-27): Near-stall detection is an experiment-level check
 - The per-case physics_flags gate checks solver exit code, finite coefficients and negative drag only.
   Near-stall needs the whole polar and will be implemented with the polar (F5).
+
+## D-015 (2026-10-27): Own mesh = Gmsh hybrid (quad boundary layer + triangles), not a structured C-grid
+- Reasoning: the Gmsh BoundaryLayer field handles the sharp trailing edge with a fan and keeps the code short
+  and explainable; SU2 handles hybrid meshes.
+- Consequence for F4 (GCI): refinement is done by scaling all sizes (levels coarse/medium/fine = factor 2/1/0.5
+  on surface spacing), not by an exact structured refinement ratio. The effective ratio must be computed from
+  cell counts, and the report must say so.
+- Alternatives: structured C-grid with transfinite blocks (exact refinement ratio, more code, trailing-edge
+  block topology is error-prone); external meshes only (no parametric airfoils).
+- Parameters (defaults in mesh_gmsh.MESH_DEFAULTS): far field 100 chords, 200 points per side at medium,
+  boundary layer 0.03 chord thick with growth 1.15. These are the agent's choices, not taken from a reference.
+
+## D-016 (2026-10-27): design first cell for y+ = 0.5
+- The flat-plate estimate for y+ = 1 gave max y+ 2.19 (near the leading edge, suction side) -> y+ gate FAIL.
+- Design value lowered to 0.5 in the experiment (a meshing parameter, not a QA threshold). Result: max y+ 1.10.

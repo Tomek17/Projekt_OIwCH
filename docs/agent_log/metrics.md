@@ -49,3 +49,10 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | 001 / final | 449x129 | 2336 | 334.4 / 335.0 s | valid (per-case gates only) | y+ 1.09 |
 | Reproducibility | both | | | | final reruns from a clean commit gave CL and CD identical to all printed digits |
 | Cases run / failed / retried | 8 / 2 crashed or invalid by agent error / 4 reruns | | | | |
+
+## F2b (own Gmsh mesh), agent cloud container, 4 MPI ranks
+| Run | Mesh | Iterations | Wall (SU2) | Status | Notes |
+|---|---|---|---|---|---|
+| 001 | Gmsh medium, design y+ 1.0, 35,664 el. | 1001 | 77.0 s | invalid | max y+ 2.19 |
+| final | Gmsh medium, design y+ 0.5, 37,674 el. | 1001 | 81.1 s | valid (per-case gates) | max y+ 1.10 |
+| Mesh generation | | | ~1 s | | Gmsh, single thread |
