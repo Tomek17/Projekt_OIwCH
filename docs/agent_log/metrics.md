@@ -37,3 +37,22 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | Build attempts | 2 (1 failed: X-003, no BuildKit; 1 OK after installing docker-buildx) |
 | Build time | unknown: the screenshot shows a fully cached rebuild (0.9 s), the first successful build was not timed |
 | `scripts/check_image.sh` | SU2 v8.5.0, Gmsh 4.15.2 (CLI + Python), Open MPI 5.0.11, Python 3.11.18, 60 passed (from the student's screenshot) |
+
+## F2a (single case on external meshes), agent cloud container, 4 vCPU, 4 MPI ranks
+| Run | Mesh | Iterations | Wall time | Status | Notes |
+|---|---|---|---|---|---|
+| manual check (outside pipeline) | 225x65 | 766 | 42 s (docker run incl.) | n/a | SU2 test-case options, residual -12 |
+| 001 | 225x65 | 0 | 1.9 s | invalid | X-004 |
+| 002 | 225x65 | 768 | 27.8 s | invalid | X-005, X-006 |
+| 003 | 225x65 | 1001 | 35.1 s | incomplete | X-006 |
+| 004 / final | 225x65 | 1001 | 34.8 / 35.6 s | invalid | y+ 3.1 > 2.0 |
+| 001 / final | 449x129 | 2336 | 334.4 / 335.0 s | valid (per-case gates only) | y+ 1.09 |
+| Reproducibility | both | | | | final reruns from a clean commit gave CL and CD identical to all printed digits |
+| Cases run / failed / retried | 8 / 2 crashed or invalid by agent error / 4 reruns | | | | |
+
+## F2b (own Gmsh mesh), agent cloud container, 4 MPI ranks
+| Run | Mesh | Iterations | Wall (SU2) | Status | Notes |
+|---|---|---|---|---|---|
+| 001 | Gmsh medium, design y+ 1.0, 35,664 el. | 1001 | 77.0 s | invalid | max y+ 2.19 |
+| final | Gmsh medium, design y+ 0.5, 37,674 el. | 1001 | 81.1 s | valid (per-case gates) | max y+ 1.10 |
+| Mesh generation | | | ~1 s | | Gmsh, single thread |

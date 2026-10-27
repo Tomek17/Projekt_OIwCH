@@ -1,0 +1,17 @@
+# F2 baseline: our pipeline on the SU2 TestCases NACA 0012 C-grid (225x65), to test the solver setup
+# separately from our own meshing. Fetch the mesh first: scripts/fetch_meshes.sh
+name: naca0012_a5_su2grid
+airfoil: NACA0012
+alpha_deg: [5.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: coarse
+mesh:
+  source: file
+  path: data/meshes/su2_testcases/n0012_225-65.su2
+  sha256: 20dfc96875b1d1a8377c2e64248b6ee42a1ecf525c50d822fb5f539d06d68d15
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
+notes: "Solver-setup baseline on an external mesh. Not validated (no validation gate yet)."

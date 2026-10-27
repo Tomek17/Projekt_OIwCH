@@ -1,0 +1,19 @@
+{
+  "experiment": "naca0012_a5_su2grid",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 1,
+  "wall_time_s": 1.88,
+  "n_procs": 4,
+  "solver_reported_converged": null,
+  "status": "invalid",
+  "status_reasons": [
+    "mesh_quality: not run: SU2 mesh quality table not found in solver.log",
+    "wall_yplus: not run: surface_flow.csv missing",
+    "convergence: not run: history.csv missing",
+    "physics_flags: FAIL: solver exited with code 1"
+  ]
+}

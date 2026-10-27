@@ -1,0 +1,18 @@
+{
+  "experiment": "naca0012_a5_smoke",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 81.12,
+  "n_procs": 4,
+  "CL": 0.5539871481,
+  "CD": 0.0103196597,
+  "CM": -0.00219649094,
+  "iterations": 1001,
+  "solver_reported_converged": true,
+  "status": "valid",
+  "status_reasons": []
+}

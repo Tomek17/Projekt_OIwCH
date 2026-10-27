@@ -61,3 +61,44 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 ## D-009 (2026-10-27): Proxy CA passed as a BuildKit secret, never baked into the image
 - Reasoning: the agent's cloud container intercepts TLS; the student's laptop and a cloud VM do not.
   A build secret works in both cases and leaves no trace in the image.
+
+## D-010 (2026-10-27): Standard SA model, no SA_OPTIONS
+- Decision: `KIND_TURB_MODEL= SA` without options (the SU2 test case uses `NEGATIVE, EXPERIMENTAL`).
+- Reasoning: SU2 refuses `NEGATIVE` alone as "a non-standard version of SA-neg" (attempt 001, X-004); the agent
+  cannot explain what EXPERIMENTAL changes, so it uses the plain standard model it can explain.
+- Alternative: copy the test-case options verbatim; revisit if robustness problems appear at high alpha.
+
+## D-011 (2026-10-27): CONV_STARTITER = 1000 as a minimum iteration count
+- Problem: SU2 stopped at 768 iterations when rms[Rho] reached -12, so the last 500 iterations still contained
+  part of the start-up transient and the convergence gate failed on CL drift (1.17e-4 > 1e-4).
+- Decision: let SU2 run at least 1000 iterations (convergence is not tested before CONV_STARTITER).
+  The QA threshold was NOT changed; the solver setting was.
+- Result: CL relative range in the window 5.8e-6; residual drop 9.2 orders.
+
+## D-012 (2026-10-27): Validate the solver setup on an external "golden" mesh before our own meshing
+- Decision: experiments can use `mesh.source: file` (sha256-pinned). First runs use the SU2 TestCases NACA 0012
+  C-grids (225x65, 449x129), so solver-setup errors are separated from meshing errors (risk table in PLAN.md).
+
+## D-013 (2026-10-27): WRT_RESTART_COMPACT= NO to get y+ into surface_flow.csv
+- Finding: with the default (YES), SU2 v8.5.0 writes only conservative variables to the surface CSV even with
+  VOLUME_OUTPUT including PRIMITIVE; tested in a 2-iteration restart run, then in the pipeline.
+- Cost: larger restart files (git-ignored).
+
+## D-014 (2026-10-27): Near-stall detection is an experiment-level check
+- The per-case physics_flags gate checks solver exit code, finite coefficients and negative drag only.
+  Near-stall needs the whole polar and will be implemented with the polar (F5).
+
+## D-015 (2026-10-27): Own mesh = Gmsh hybrid (quad boundary layer + triangles), not a structured C-grid
+- Reasoning: the Gmsh BoundaryLayer field handles the sharp trailing edge with a fan and keeps the code short
+  and explainable; SU2 handles hybrid meshes.
+- Consequence for F4 (GCI): refinement is done by scaling all sizes (levels coarse/medium/fine = factor 2/1/0.5
+  on surface spacing), not by an exact structured refinement ratio. The effective ratio must be computed from
+  cell counts, and the report must say so.
+- Alternatives: structured C-grid with transfinite blocks (exact refinement ratio, more code, trailing-edge
+  block topology is error-prone); external meshes only (no parametric airfoils).
+- Parameters (defaults in mesh_gmsh.MESH_DEFAULTS): far field 100 chords, 200 points per side at medium,
+  boundary layer 0.03 chord thick with growth 1.15. These are the agent's choices, not taken from a reference.
+
+## D-016 (2026-10-27): design first cell for y+ = 0.5
+- The flat-plate estimate for y+ = 1 gave max y+ 2.19 (near the leading edge, suction side) -> y+ gate FAIL.
+- Design value lowered to 0.5 in the experiment (a meshing parameter, not a QA threshold). Result: max y+ 1.10.

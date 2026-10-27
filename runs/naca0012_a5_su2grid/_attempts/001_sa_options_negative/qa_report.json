@@ -1,0 +1,45 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "not_run",
+      "value": null,
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/solver.log",
+      "reason": "SU2 mesh quality table not found in solver.log"
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "not_run",
+      "value": null,
+      "threshold": null,
+      "evidence": null,
+      "reason": "surface_flow.csv missing"
+    },
+    {
+      "name": "convergence",
+      "outcome": "not_run",
+      "value": null,
+      "threshold": null,
+      "evidence": null,
+      "reason": "history.csv missing"
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "fail",
+      "value": {
+        "solver_exit_code": 1
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/results.json",
+      "reason": "solver exited with code 1"
+    }
+  ]
+}

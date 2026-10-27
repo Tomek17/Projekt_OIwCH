@@ -1,0 +1,20 @@
+{
+  "experiment": "naca0012_a5_su2grid",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 35.59,
+  "n_procs": 4,
+  "CL": 0.5595906166,
+  "CD": 0.0110186195,
+  "CM": -0.0002825107478,
+  "iterations": 1001,
+  "solver_reported_converged": true,
+  "status": "invalid",
+  "status_reasons": [
+    "wall_yplus: FAIL: max y+ 3.105 > 2.0"
+  ]
+}
