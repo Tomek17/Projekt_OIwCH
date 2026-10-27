@@ -1,0 +1,12 @@
+# Validation campaign (F5). The angle list is a placeholder until the reference data is in data/reference/.
+name: naca0012_validation
+airfoil: NACA0012
+geometry_variant: tmr_closed_te
+alpha_deg: [0.0, 5.0, 10.0, 15.0]   # TODO F5: match the angles available in the reference data
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: fine                     # TODO F4: choose from the GCI study
+mesh: {}
+solver: {}
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags, gci, validation]
