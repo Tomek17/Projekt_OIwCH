@@ -83,7 +83,7 @@ A missing or not-yet-run gate never counts as passed.
 | Layer | Mechanism | Status |
 |---|---|---|
 | Code | `assign_status()` is the only writer of `status`; unit tests | written + tested (F0) |
-| Hook | PreToolUse hook rejects Write/Edit that put `"status": "valid"` into a file | written + tested by unit test (F0); not yet observed in a live agent session |
+| Hook | PreToolUse hook rejects Write/Edit that put `"status": "valid"` into a file | written + tested by unit tests (F0); NOT yet verified in a live Claude Code session |
 | Rules | `CLAUDE.md` hard rule 3 | written |
 
 ## Human-in-the-loop checkpoints

@@ -6,11 +6,11 @@ not compute time. Compute time is unknown until measured in F2.
 Status legend: **written** = exists, not run; **tested** = run, output seen.
 
 ## F0. Repository skeleton and agent log (~1 session)
-- [ ] Directory structure, CLAUDE.md, PLAN.md, README.md
-- [ ] Stubs with docstrings that raise `NotImplementedError` (no fake implementations)
-- [ ] Subagents (`.claude/agents/`), skills (`.claude/skills/`), hooks (`.claude/settings.json`)
-- [ ] `docs/architecture.md` (Mermaid), `docs/runbook.md`, `docs/agent_log/*`
-- [ ] Test scaffold
+- [x] Directory structure, CLAUDE.md, PLAN.md, README.md
+- [x] Stubs with docstrings that raise `NotImplementedError` (no fake implementations)
+- [x] Subagents (`.claude/agents/`), skills (`.claude/skills/`), hooks (`.claude/settings.json`)
+- [x] `docs/architecture.md` (Mermaid), `docs/runbook.md`, `docs/agent_log/*`
+- [x] Test scaffold
 **Acceptance:** `pytest` passes; every stub is verified by a test to raise `NotImplementedError`;
 the hook that blocks manual `"status": "valid"` and edits of protected files is tested; small commits.
 
