@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+build/
+dist/
+
+# Heavy solver/mesh outputs stay out of git; small JSON/CSV summaries are committed.
+runs/**/*.su2
+runs/**/*.msh
+runs/**/*.vtu
+runs/**/*.vtk
+runs/**/*.dat
+runs/**/*.szplt
+runs/**/restart*

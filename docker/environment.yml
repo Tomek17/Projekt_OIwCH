@@ -1,0 +1,17 @@
+# Conda environment for the image. Status: written, NOT built yet (F1).
+# SU2 8.5.0 and Gmsh 4.15.2 were seen on conda-forge on 2026-10-27; other versions are pinned in F1
+# by exporting a lock file from a successful build (docker/environment.lock.yml).
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - su2=8.5.0
+  - gmsh=4.15.2
+  - python-gmsh=4.15.2   # TODO F1: check the exact package name of the Python API on conda-forge
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - pyyaml
+  - pytest

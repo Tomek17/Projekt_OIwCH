@@ -1,0 +1,39 @@
+# QA gate thresholds. PROTECTED FILE: changing it requires explicit approval from the student
+# (a Claude Code hook blocks agent edits). Log every change in docs/agent_log/decisions.md.
+#
+# status values:
+#   starting_default  - proposed by the agent, accepted by the student as a starting value (2026-10-27),
+#                       to be revisited after F2 with real data
+#   undefined         - deliberately not set yet; the gate reports NOT_RUN until it is defined
+# None of these numbers come from this project's data yet.
+
+version: 1
+gates:
+  mesh_quality:
+    status: starting_default
+    min_orthogonality_angle_deg: 20.0
+    max_aspect_ratio_outside_boundary_layer: null   # undefined until F2
+  wall_yplus:
+    status: starting_default
+    target_max: 1.0      # SA/SST without wall functions
+    fail_above: 2.0
+  convergence:
+    status: starting_default
+    min_residual_drop_orders: 5.0   # rms density residual, last vs first iterations
+    window_iterations: 500          # stabilisation window M
+    cl_max_relative_range: 1.0e-4   # (max - min) / |mean| over the window
+    cd_max_relative_range: 1.0e-3
+  gci:
+    status: starting_default
+    max_gci_fine_cl_percent: 2.0
+    max_gci_fine_cd_percent: 5.0
+    safety_factor: 1.25             # value commonly used with 3 grids; confirm against the cited procedure in F4
+  validation:
+    status: undefined               # tolerance set only after seeing the reference data and its uncertainty
+    cl_tolerance: null
+    cd_tolerance: null
+  physics_flags:
+    status: starting_default
+    flag_negative_cd: true
+    flag_oscillating_forces: true   # uses the convergence window
+    flag_near_stall: true           # how "near" is defined: TODO F3

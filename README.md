@@ -2,4 +2,37 @@
 
 Course project: *Obliczenia Inżynierskie w Chmurze* (Cloud Engineering Computations), WUT.
 
-Status: repository initialised. The project skeleton is added in a follow-up pull request.
+Research question: can an AI agent (Claude Code) autonomously run a reproducible, validated CFD
+workflow in the cloud, and what architecture is needed to trust its results?
+
+## Status
+Skeleton only (phase F0). The CFD pipeline is **not implemented yet**: most functions raise
+`NotImplementedError`. See [PLAN.md](PLAN.md).
+
+## Layout
+| Path | Purpose |
+|---|---|
+| `CLAUDE.md` | rules and conventions for the agent |
+| `config/qa_thresholds.yaml` | all QA gate thresholds (protected file) |
+| `experiments/*.yaml` | one YAML = one experiment |
+| `src/nacacfd/` | Python package: `airfoil`, `runner`, `postprocess`, `qa`, `cli` |
+| `docker/` | image with SU2 + Gmsh + Python stack (draft) |
+| `data/reference/` | experimental/reference data, each source documented |
+| `runs/<experiment>/<case>/` | outputs of each case |
+| `docs/` | architecture, runbook, agent logs |
+| `.claude/` | subagents, skills, hooks |
+| `tests/` | unit tests |
+
+## Quickstart (planned; does not work yet)
+```bash
+docker build -t nacacfd -f docker/Dockerfile .          # F1
+docker run --rm -v "$PWD":/work -w /work nacacfd \
+    nacacfd run experiments/naca0012_a5_smoke.yaml       # F2
+```
+
+## Development (works now)
+```bash
+python3 -m venv .venv && . .venv/bin/activate
+pip install -e ".[dev]"
+pytest
+```
