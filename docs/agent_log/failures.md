@@ -27,3 +27,29 @@ Format: ID, date, what went wrong, how it was detected (gate / test / human / ag
   and declared the Dockerfile tested without testing it on the target environment.
 - Fix: `sudo apt install -y docker-buildx` (confirmed working on the laptop the same evening); requirement added to docker/README.md, runbook and CLAUDE.md.
 - Lesson: "tested" must name WHERE it was tested. F1 was tested in the agent's environment, not the target one.
+
+## X-004 (2026-10-27): agent changed a validated solver option without checking it
+- What: when deriving the template from the SU2 test case, the agent dropped `EXPERIMENTAL` from
+  `SA_OPTIONS= NEGATIVE, EXPERIMENTAL` ("cannot explain it, so remove it"). SU2 aborted at start-up.
+- Detected by: SU2 itself; the pipeline recorded exit code 1 and status `invalid` (physics_flags FAIL,
+  other gates NOT_RUN). No result was reported. Evidence: runs/naca0012_a5_su2grid/_attempts/001_*.
+- Fix: standard SA without options (D-010).
+- Lesson: removing half of an option set is a change too; check it like any other.
+
+## X-005 (2026-10-27): solver stop criterion inconsistent with the QA stabilisation window
+- What: SU2 stopped at 768 iterations (residual criterion), the convergence gate judged CL over the last
+  500 iterations, which still contained the transient -> FAIL (1.17e-4 > 1e-4).
+- Detected by: the convergence gate (attempt 002). Fix: minimum iteration count (D-011), threshold unchanged.
+- Note for the report: the gate did its job; the alternative "fix" of loosening the threshold to 2e-4 would
+  have been a human checkpoint.
+
+## X-006 (2026-10-27): y+ missing from the SU2 surface output
+- What: the y+ gate had nothing to check because SU2's surface CSV lacked the Y_Plus column (attempts 002, 003).
+- Detected by: the y+ gate returned NOT_RUN -> case status `incomplete` (not a silent pass).
+- Fix: WRT_RESTART_COMPACT= NO (D-013).
+
+## Finding F2-1 (2026-10-27, not an agent error): the 225x65 mesh fails the y+ gate
+- max y+ = 3.105 at the leading edge (mean 1.18) > fail limit 2.0 -> status `invalid`.
+  On the 449x129 mesh: max y+ = 1.089 (mean 0.50) -> pass with a note (above the target 1.0).
+- CL/CD differ between the two meshes (CD 0.01102 vs 0.00941, about 15%), so grid dependence is large at this
+  level; this is what F4 (GCI) must quantify. No result here is validated against experiment.

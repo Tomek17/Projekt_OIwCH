@@ -22,7 +22,9 @@ the hook that blocks manual `"status": "valid"` and edits of protected files is 
 `pytest` passes; image digest and build time recorded in `docs/agent_log/metrics.md`.
 
 ## F2. One case end to end: NACA 0012, alpha = 5 deg (1-2 days, biggest risk)
-- [ ] NACA geometry, Gmsh boundary-layer mesh, SU2 config from template, run, cL/cD/cM, metadata.json
+- [x] F2a: SU2 config from template, run, cL/cD/cM, results/qa_report/metadata.json, on external SU2 TestCases meshes
+- [x] F2a: first versions of the mesh, y+, convergence and physics gates
+- [ ] F2b: NACA geometry + our own Gmsh boundary-layer mesh
 **Acceptance:** one command `nacacfd run experiments/naca0012_a5_smoke.yaml`; all outputs machine-readable;
 preliminary convergence and y+ gates computed and stored; compared with reference data if available
 (otherwise marked "not validated"); wall time of one case on N cores measured.
