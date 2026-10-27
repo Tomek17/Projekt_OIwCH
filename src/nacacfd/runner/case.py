@@ -36,25 +36,25 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def _gmsh_mesh(experiment, case_dir: Path) -> Path:
+def _gmsh_mesh(experiment, case_dir: Path, level: str) -> Path:
     from nacacfd.airfoil.mesh_gmsh import build_mesh, mesh_options, mesh_statistics
     from nacacfd.airfoil.naca import naca4_coordinates
 
-    opts = mesh_options(experiment.mesh, experiment.mesh_level, experiment.reynolds)
+    opts = mesh_options(experiment.mesh, level, experiment.reynolds)
     closed = experiment.geometry_variant == "standard_closed_te"
     upper, lower = naca4_coordinates(experiment.airfoil, 2 * opts["n_surface_points_eff"] + 1, closed_te=closed)
     t0 = time.monotonic()
-    path = build_mesh(upper, lower, experiment.mesh_level, case_dir, opts)
-    info = {"generator": "gmsh", "geometry_variant": experiment.geometry_variant, "options": opts,
+    path = build_mesh(upper, lower, level, case_dir, opts)
+    info = {"generator": "gmsh", "level": level, "geometry_variant": experiment.geometry_variant, "options": opts,
             "statistics": mesh_statistics(path), "wall_time_s": round(time.monotonic() - t0, 2)}
     (case_dir / "mesh_info.json").write_text(json.dumps(info, indent=2) + "\n")
     return path
 
 
-def prepare_mesh(experiment, case_dir: Path) -> Path:
+def prepare_mesh(experiment, case_dir: Path, level: str | None = None) -> Path:
     mesh = experiment.mesh
     if mesh["source"] == "gmsh":
-        return _gmsh_mesh(experiment, case_dir)
+        return _gmsh_mesh(experiment, case_dir, level or experiment.mesh_level)
     src = (REPO_ROOT / mesh["path"]).resolve()
     if not src.exists():
         raise FileNotFoundError(f"{src} not found; run scripts/fetch_meshes.sh")
@@ -66,7 +66,7 @@ def prepare_mesh(experiment, case_dir: Path) -> Path:
     return dst
 
 
-def run_case(experiment, alpha_deg: float, case_dir) -> dict:
+def run_case(experiment, alpha_deg: float, case_dir, level: str | None = None) -> dict:
     """Run one case. Solver failures do not raise: they are recorded in results.json and fail the gates."""
     case_dir = Path(case_dir)
     if (case_dir / "results.json").exists():
@@ -74,7 +74,8 @@ def run_case(experiment, alpha_deg: float, case_dir) -> dict:
     case_dir.mkdir(parents=True, exist_ok=True)
     started = utc_now()
 
-    mesh_path = prepare_mesh(experiment, case_dir)
+    level = level or experiment.mesh_level
+    mesh_path = prepare_mesh(experiment, case_dir, level)
     cfg = render_config(experiment, alpha_deg, mesh_path, case_dir / "config.cfg")
     n_procs = int(solver_settings(experiment)["n_procs"])
 
@@ -88,6 +89,7 @@ def run_case(experiment, alpha_deg: float, case_dir) -> dict:
     wall = time.monotonic() - t0
 
     results: dict = {"experiment": experiment.name, "case": case_dir.name, "alpha_deg": alpha_deg,
+                     "mesh_level": level,
                      "mach": experiment.mach, "reynolds": experiment.reynolds,
                      "turbulence_model": experiment.turbulence_model,
                      "solver_exit_code": proc.returncode, "wall_time_s": round(wall, 2), "n_procs": n_procs}

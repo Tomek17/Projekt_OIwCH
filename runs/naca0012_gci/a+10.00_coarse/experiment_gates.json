@@ -1,0 +1,14 @@
+[
+  {
+    "name": "gci",
+    "outcome": "not_run",
+    "value": null,
+    "threshold": {
+      "max_gci_fine_cl_percent": 2.0,
+      "max_gci_fine_cd_percent": 5.0,
+      "safety_factor": 1.25
+    },
+    "evidence": null,
+    "reason": "a+10.00_coarse: per-case gates not passed (wall_yplus)"
+  }
+]

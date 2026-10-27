@@ -1,0 +1,98 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 67.7402,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 67.7402,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00016,
+            "max": 5887.76
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.00001,
+            "max": 2800.25
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci/a+10.00_medium/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 1.575255040978518,
+        "mean": 0.5318600791758384,
+        "n_points": 398
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci/a+10.00_medium/surface_flow.csv",
+      "reason": "max y+ 1.575 above target 1.0 but below fail limit 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1081,
+        "residual_drop_orders": 7.3747239,
+        "rms_rho_first": -4.62636134,
+        "rms_rho_last": -12.00108524,
+        "cl_relative_range": 1.6351829480323158e-06,
+        "cd_relative_range": 5.178738385741311e-07
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci/a+10.00_medium/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 1.081225145,
+        "CD": 0.01537053929,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci/a+10.00_medium/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "not_run",
+      "value": null,
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25
+      },
+      "evidence": null,
+      "reason": "a+10.00_coarse: per-case gates not passed (wall_yplus)"
+    }
+  ]
+}

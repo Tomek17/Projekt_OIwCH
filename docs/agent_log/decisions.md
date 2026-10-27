@@ -102,3 +102,9 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 ## D-016 (2026-10-27): design first cell for y+ = 0.5
 - The flat-plate estimate for y+ = 1 gave max y+ 2.19 (near the leading edge, suction side) -> y+ gate FAIL.
 - Design value lowered to 0.5 in the experiment (a meshing parameter, not a QA threshold). Result: max y+ 1.10.
+
+## D-017 (2026-10-27): GCI per Celik et al. (2008) as an experiment-level gate
+- Implemented in `qa/gci.py`; runs only when all three levels passed their per-case gates (otherwise NOT_RUN).
+- A non-monotonic sequence (oscillatory or divergent) is a FAIL, not a pass with a warning, because no error
+  bound exists then. The agent did NOT relax this after the alpha 5 CL failure; that is the student's decision.
+- Effective refinement ratio uses h = (1/N)^(1/2) from cell counts, as required for unstructured meshes (D-015).

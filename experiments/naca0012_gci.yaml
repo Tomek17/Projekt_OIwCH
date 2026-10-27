@@ -1,0 +1,18 @@
+# F4: grid independence study on our own Gmsh mesh, 3 systematically refined levels (ratio sqrt(2) in h).
+name: naca0012_gci
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [5.0, 10.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: medium
+mesh_levels: [fine, medium, coarse]
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags, gci]
+notes: "Grid study. Same mesh settings as naca0012_a5_smoke at level medium."

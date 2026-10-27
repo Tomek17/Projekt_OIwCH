@@ -31,13 +31,42 @@ def _run(args: argparse.Namespace) -> int:
     exp = load_experiment(args.target)
     out = Path(args.runs_dir) / exp.name
     worst = 0
+    levels = exp.mesh_levels or [None]
     for alpha in exp.alpha_deg:
-        r = run_case(exp, alpha, out / case_name(alpha))
-        print(f"{exp.name}/{case_name(alpha)}: status={r['status']} CL={r.get('CL')} CD={r.get('CD')} "
-              f"CM={r.get('CM')} iterations={r.get('iterations')} wall={r['wall_time_s']} s")
-        if r["status"] != "valid":
-            worst = 1
+        for level in levels:
+            name = case_name(alpha) + (f"_{level}" if level else "")
+            r = run_case(exp, alpha, out / name, level)
+            print(f"{exp.name}/{name}: status={r['status']} CL={r.get('CL')} CD={r.get('CD')} "
+                  f"CM={r.get('CM')} iterations={r.get('iterations')} wall={r['wall_time_s']} s", flush=True)
+            worst = worst or int(r["status"] != "valid")
+    if exp.mesh_levels and "gci" in exp.required_gates:
+        worst = _gci_for(exp, out) or worst
     return worst
+
+
+def _gci_for(exp, out: Path) -> int:
+    from nacacfd.config import load_thresholds
+    from nacacfd.qa.gci import check_gci
+    from nacacfd.qa.report import run_case_gates
+    from nacacfd.runner.case import case_name
+
+    thr = load_thresholds()
+    worst = 0
+    for alpha in exp.alpha_deg:
+        g = check_gci(out, thr, case_name(alpha), levels=("fine", "medium", "coarse"))
+        print(f"GCI {case_name(alpha)}: {g.outcome.value} {g.reason}", flush=True)
+        for level in exp.mesh_levels:
+            case = out / f"{case_name(alpha)}_{level}"
+            (case / "experiment_gates.json").write_text(json.dumps([g.to_dict()], indent=2) + "\n")
+            status = run_case_gates(case, exp.required_gates, thr)
+            print(f"  {case.name}: {status}")
+            worst = worst or int(status != "valid")
+    return worst
+
+
+def _gci(args: argparse.Namespace) -> int:
+    exp = load_experiment(args.target)
+    return _gci_for(exp, Path(args.runs_dir) / exp.name)
 
 
 def _qa(args: argparse.Namespace) -> int:
@@ -67,6 +96,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("target")
     p.add_argument("--runs-dir", default=str(REPO_ROOT / "runs"))
     p.set_defaults(func=_run)
+
+    p = sub.add_parser("gci", help="grid study: compute the GCI gate for an experiment with mesh_levels")
+    p.add_argument("target")
+    p.add_argument("--runs-dir", default=str(REPO_ROOT / "runs"))
+    p.set_defaults(func=_gci)
 
     p = sub.add_parser("qa", help="re-run per-case QA gates on runs/<experiment>")
     p.add_argument("target")

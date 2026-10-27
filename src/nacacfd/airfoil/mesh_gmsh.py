@@ -3,7 +3,8 @@
 Status: implemented (F2b), tested for NACA 0012 with a closed trailing edge.
 Design: hybrid rather than a structured C-grid, because the Gmsh BoundaryLayer field handles the sharp
 trailing edge (fan) automatically and the code stays short. Consequence for F4: refinement is controlled by
-scaling all sizes together, not by an exact structured refinement ratio.
+scaling all sizes together (LEVELS), not by an exact structured refinement ratio; the GCI uses the
+representative cell size h = (1/N)^(1/2) computed from the actual cell counts.
 """
 
 from __future__ import annotations
@@ -11,8 +12,11 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-# Mesh level -> scale factor on surface spacing / number of points / growth.
-LEVELS = {"coarse": 2.0, "medium": 1.0, "fine": 0.5}
+# Mesh level -> scale factor s applied to ALL sizes (surface spacing, first cell, boundary-layer growth,
+# wake and far-field cell size), so the levels are systematically refined (needed for GCI, F4).
+# Refinement ratio between neighbouring levels: sqrt(2) in each direction, ~2 in cell count.
+# "medium" (s = 1) is the reference level used in F2.
+LEVELS = {"coarse": 2 ** 0.5, "medium": 1.0, "fine": 2 ** -0.5}
 
 MESH_DEFAULTS = {
     "target_yplus": 1.0,
@@ -44,7 +48,11 @@ def mesh_options(mesh: dict, level: str, reynolds: float) -> dict:
     s = LEVELS[level]
     opts["level_scale"] = s
     opts["n_surface_points_eff"] = int(round(opts["n_surface_points"] / s))
-    opts["first_cell_height"] = first_cell_height(reynolds, opts["target_yplus"]) * min(1.0, s)
+    opts["first_cell_height"] = first_cell_height(reynolds, opts["target_yplus"]) * s
+    # Geometric growth r per layer -> r**s keeps the boundary layer thickness with ~1/s times the layers.
+    opts["bl_growth_ratio_eff"] = opts["bl_growth_ratio"] ** s
+    opts["farfield_size_eff"] = opts["farfield_size_chords"] * s
+    opts["wake_size_eff"] = opts["wake_size_chords"] * s
     return opts
 
 
@@ -76,7 +84,7 @@ def build_mesh(upper, lower, level: str, out_dir, options: dict) -> Path:
 
         R = o["farfield_radius_chords"]
         center = geo.addPoint(0.5, 0, 0)
-        f_pts = [geo.addPoint(0.5 + R * math.cos(a), R * math.sin(a), 0, o["farfield_size_chords"])
+        f_pts = [geo.addPoint(0.5 + R * math.cos(a), R * math.sin(a), 0, o["farfield_size_eff"])
                  for a in (0, math.pi / 2, math.pi, 3 * math.pi / 2)]
         arcs = [geo.addCircleArc(f_pts[i], center, f_pts[(i + 1) % 4]) for i in range(4)]
         outer = geo.addCurveLoop(arcs)
@@ -96,14 +104,13 @@ def build_mesh(upper, lower, level: str, out_dir, options: dict) -> Path:
         bl = field.add("BoundaryLayer")
         field.setNumbers(bl, "CurvesList", [c_up, c_lo])
         field.setNumber(bl, "Size", o["first_cell_height"])
-        field.setNumber(bl, "Ratio", o["bl_growth_ratio"])
+        field.setNumber(bl, "Ratio", o["bl_growth_ratio_eff"])
         field.setNumber(bl, "Thickness", o["bl_thickness_chords"])
         field.setNumber(bl, "Quads", 1)
         field.setNumbers(bl, "FanPointsList", [te])
         field.setAsBoundaryLayer(bl)
 
         # Background size: fine near the airfoil and along the wake, growing towards the far field.
-        s = o["level_scale"]
         surf_size = 1.0 / n
         d_af = field.add("Distance")
         field.setNumbers(d_af, "CurvesList", [c_up, c_lo])
@@ -111,7 +118,7 @@ def build_mesh(upper, lower, level: str, out_dir, options: dict) -> Path:
         t_af = field.add("Threshold")
         field.setNumber(t_af, "InField", d_af)
         field.setNumber(t_af, "SizeMin", 2 * surf_size)
-        field.setNumber(t_af, "SizeMax", o["farfield_size_chords"])
+        field.setNumber(t_af, "SizeMax", o["farfield_size_eff"])
         field.setNumber(t_af, "DistMin", o["bl_thickness_chords"])
         field.setNumber(t_af, "DistMax", R)
         wake_end = geo.addPoint(1.0 + o["wake_length_chords"], 0, 0)
@@ -122,8 +129,8 @@ def build_mesh(upper, lower, level: str, out_dir, options: dict) -> Path:
         field.setNumber(d_w, "Sampling", 400)
         t_w = field.add("Threshold")
         field.setNumber(t_w, "InField", d_w)
-        field.setNumber(t_w, "SizeMin", o["wake_size_chords"] * s)
-        field.setNumber(t_w, "SizeMax", o["farfield_size_chords"])
+        field.setNumber(t_w, "SizeMin", o["wake_size_eff"])
+        field.setNumber(t_w, "SizeMax", o["farfield_size_eff"])
         field.setNumber(t_w, "DistMin", 0.05)
         field.setNumber(t_w, "DistMax", 5.0)
         mn = field.add("Min")

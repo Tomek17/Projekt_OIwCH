@@ -1,0 +1,21 @@
+{
+  "experiment": "naca0012_gci",
+  "case": "a+10.00_medium",
+  "alpha_deg": 10.0,
+  "mesh_level": "medium",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 88.06,
+  "n_procs": 4,
+  "CL": 1.081225145,
+  "CD": 0.01537053929,
+  "CM": -0.006736334909,
+  "iterations": 1081,
+  "solver_reported_converged": true,
+  "status": "incomplete",
+  "status_reasons": [
+    "gci: not run: a+10.00_coarse: per-case gates not passed (wall_yplus)"
+  ]
+}
