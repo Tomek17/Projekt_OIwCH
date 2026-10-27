@@ -13,7 +13,6 @@ STUBS = {
     "nacacfd.postprocess.polars": ["collect_polar"],
     "nacacfd.postprocess.plots": ["plot_polar"],
     "nacacfd.postprocess.compare": ["load_reference", "deviations"],
-    "nacacfd.qa.gci": ["compute_gci", "check_gci"],
     "nacacfd.qa.validation": ["check_validation"],
 }
 

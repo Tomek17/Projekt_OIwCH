@@ -42,6 +42,7 @@ class Experiment:
     mesh: dict[str, Any] = field(default_factory=dict)
     notes: str = ""
     geometry_variant: str = "standard_closed_te"
+    mesh_levels: list[str] = field(default_factory=list)  # non-empty = grid study, one case per level
 
 
 def _require(data: dict, key: str, source: str) -> Any:
@@ -94,6 +95,12 @@ def load_experiment(path: str | Path) -> Experiment:
         raise ConfigError(f"{path}: geometry_variant must be one of {sorted(GEOMETRY_VARIANTS)}"
                           " (the NASA TMR variant is not implemented: definition not verified)")
 
+    levels = [str(x).lower() for x in (data.get("mesh_levels") or [])]
+    if any(x not in MESH_LEVELS for x in levels):
+        raise ConfigError(f"{path}: mesh_levels entries must be in {sorted(MESH_LEVELS)}")
+    if levels and source != "gmsh":
+        raise ConfigError(f"{path}: mesh_levels (grid study) needs mesh.source: gmsh")
+
     gates = _require(data, "required_gates", str(path))
     if not isinstance(gates, list) or not gates:
         raise ConfigError(f"{path}: required_gates must be a non-empty list")
@@ -111,6 +118,7 @@ def load_experiment(path: str | Path) -> Experiment:
         mesh=mesh,
         notes=str(data.get("notes") or ""),
         geometry_variant=variant,
+        mesh_levels=levels,
     )
 
 

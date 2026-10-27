@@ -14,7 +14,8 @@ def test_first_cell_height_scaling():
 def test_levels_refine():
     c, m, f = (mesh_options({}, lvl, 6e6) for lvl in ("coarse", "medium", "fine"))
     assert c["n_surface_points_eff"] < m["n_surface_points_eff"] < f["n_surface_points_eff"]
-    assert f["first_cell_height"] < m["first_cell_height"] == c["first_cell_height"]
+    assert f["first_cell_height"] < m["first_cell_height"] < c["first_cell_height"]
+    assert f["bl_growth_ratio_eff"] < m["bl_growth_ratio_eff"] < c["bl_growth_ratio_eff"]
 
 
 def test_mesh_statistics(tmp_path):

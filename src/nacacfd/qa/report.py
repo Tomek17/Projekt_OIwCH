@@ -38,8 +38,13 @@ def run_case_gates(case_dir, required: list[str], thresholds: dict | None = None
             results.append(fn(case_dir, thresholds))
         except Exception as exc:  # a crashing gate must not look like a passing gate
             results.append(GateResult(name, GateOutcome.NOT_RUN, reason=f"gate crashed: {exc!r}"))
+    # Experiment-level gates (e.g. gci) are written into the case by their own command.
+    extra_path = case_dir / "experiment_gates.json"
+    if extra_path.exists():
+        results += [GateResult.from_dict(d) for d in json.loads(extra_path.read_text())]
+    done = {r.name for r in results}
     for name in required:
-        if name not in CASE_GATES:
+        if name not in done:
             results.append(GateResult(name, GateOutcome.NOT_RUN, reason="not a per-case gate; evaluated later"))
     report = {"thresholds_version": thresholds.get("version"), "required": required,
               "gates": [r.to_dict() for r in results]}
