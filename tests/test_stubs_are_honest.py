@@ -9,7 +9,6 @@ import pytest
 
 STUBS = {
     "nacacfd.airfoil.naca": ["naca5_coordinates"],
-    "nacacfd.airfoil.mesh_gmsh": ["first_cell_height", "build_mesh", "mesh_statistics"],
     "nacacfd.runner.sweep": ["run_sweep"],
     "nacacfd.postprocess.polars": ["collect_polar"],
     "nacacfd.postprocess.plots": ["plot_polar"],
