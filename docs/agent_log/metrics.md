@@ -29,4 +29,11 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | Image size (uncompressed) | 5,313,091,347 bytes (~5.3 GB) |
 | Image ID (lock build) | sha256:9c7ef367c0330a819178d84648e29296668b44145f2b7514ee258876726ddb9e |
 | Verified inside image | SU2 v8.5.0, Gmsh 4.15.2 (CLI + Python), Open MPI 5.0.11, Python 3.11.18, pytest 60 passed |
-| Not verified | an actual SU2 run; build on the student's laptop |
+| Not verified | an actual SU2 run |
+
+## F1 on the student's laptop (WSL2 Ubuntu 24.04, docker.io + docker-buildx), 2026-10-27
+| Item | Value |
+|---|---|
+| Build attempts | 2 (1 failed: X-003, no BuildKit; 1 OK after installing docker-buildx) |
+| Build time | unknown: the screenshot shows a fully cached rebuild (0.9 s), the first successful build was not timed |
+| `scripts/check_image.sh` | SU2 v8.5.0, Gmsh 4.15.2 (CLI + Python), Open MPI 5.0.11, Python 3.11.18, 60 passed (from the student's screenshot) |

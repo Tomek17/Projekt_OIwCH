@@ -25,5 +25,5 @@ Format: ID, date, what went wrong, how it was detected (gate / test / human / ag
 - Detected by: the student's first build on the target machine (screenshot), ~25 min after the PR was merged.
 - Root cause: the agent tested the build only in its own cloud container, where BuildKit was available,
   and declared the Dockerfile tested without testing it on the target environment.
-- Fix: `sudo apt install -y docker-buildx`; requirement added to docker/README.md, runbook and CLAUDE.md.
+- Fix: `sudo apt install -y docker-buildx` (confirmed working on the laptop the same evening); requirement added to docker/README.md, runbook and CLAUDE.md.
 - Lesson: "tested" must name WHERE it was tested. F1 was tested in the agent's environment, not the target one.
