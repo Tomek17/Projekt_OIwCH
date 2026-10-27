@@ -10,7 +10,7 @@ turbulence_model: SA
 mesh_level: medium
 mesh:
   source: gmsh
-  target_yplus: 1.0
+  target_yplus: 0.5   # design value; the flat-plate estimate underpredicts y+ near the leading edge (attempt 001: max 2.19)
   farfield_radius_chords: 100.0
 solver:
   n_procs: 4
