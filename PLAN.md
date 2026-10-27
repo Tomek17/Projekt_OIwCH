@@ -17,7 +17,7 @@ the hook that blocks manual `"status": "valid"` and edits of protected files is 
 ## F1. Docker image (2-4 h)
 - [x] Dockerfile with pinned SU2 and Gmsh (SU2 8.5.0, Gmsh 4.15.2 from conda-forge; tested in the agent container)
 - [x] Lock file of the full environment (`docker/environment.lock.txt`)
-- [ ] Build + `scripts/check_image.sh` on the student's laptop
+- [x] Build + `scripts/check_image.sh` on the student's laptop (after installing docker-buildx, X-003)
 **Acceptance:** image builds from scratch; inside it `SU2_CFD` prints its version, `import gmsh` works,
 `pytest` passes; image digest and build time recorded in `docs/agent_log/metrics.md`.
 

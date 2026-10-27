@@ -53,6 +53,6 @@ A log with only successes is useless. Be honest.
 - All heavy tools (SU2, Gmsh) run inside the Docker image from `docker/`.
 
 ## Environment notes
-- Main compute: the student's laptop, WSL2 Ubuntu 24.04, 8 physical cores, Docker Engine (apt docker.io).
+- Main compute: the student's laptop, WSL2 Ubuntu 24.04, 8 physical cores, Docker Engine (apt docker.io + docker-buildx).
 - In the Claude Code cloud container the Docker daemon is not running by default: start it with `dockerd &`.
   NASA TMR (turbmodels.larc.nasa.gov) is blocked from that container; reference data must be supplied by the student.
