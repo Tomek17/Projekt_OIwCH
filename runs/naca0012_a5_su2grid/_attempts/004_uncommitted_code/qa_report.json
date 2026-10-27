@@ -1,0 +1,85 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 81.4478,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 81.4478,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00305,
+            "max": 23914700.0
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.0,
+            "max": 4.15802
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "fail",
+      "value": {
+        "max": 3.104922305310013,
+        "mean": 1.1763772739858753,
+        "n_points": 128
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/surface_flow.csv",
+      "reason": "max y+ 3.105 > 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1001,
+        "residual_drop_orders": 9.190533934000001,
+        "rms_rho_first": -4.343720686,
+        "rms_rho_last": -13.53425462,
+        "cl_relative_range": 5.835868545400138e-06,
+        "cd_relative_range": 4.7419418016745724e-05
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 0.5595906166,
+        "CD": 0.0110186195,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_a5_su2grid/a+05.00/results.json",
+      "reason": ""
+    }
+  ]
+}

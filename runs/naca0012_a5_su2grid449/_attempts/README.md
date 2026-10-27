@@ -1,0 +1,1 @@
+- 001_uncommitted_code: same settings as the final run, produced from an uncommitted working tree (git_dirty=true); rerun from a clean commit

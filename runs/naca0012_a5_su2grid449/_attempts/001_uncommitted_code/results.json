@@ -1,0 +1,18 @@
+{
+  "experiment": "naca0012_a5_su2grid449",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 334.43,
+  "n_procs": 4,
+  "CL": 0.5622143386,
+  "CD": 0.009412756455,
+  "CM": -0.0008095361107,
+  "iterations": 2336,
+  "solver_reported_converged": true,
+  "status": "valid",
+  "status_reasons": []
+}
