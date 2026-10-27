@@ -1,0 +1,19 @@
+# F4c: same 4-level grid study as naca0012_gci4, at alpha 10. The GCI gate uses the three finest levels
+# (xfine, fine, medium); the coarse case is kept to show the whole sequence.
+name: naca0012_gci4_a10
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [10.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: medium
+mesh_levels: [xfine, fine, medium, coarse]
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags, gci]
+notes: "F4c: alpha 10 with the 4-level setup (naca0012_gci had coarse y+ 2.22 -> GCI NOT_RUN)."
