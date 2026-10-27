@@ -29,6 +29,10 @@ MESH_DEFAULTS = {
     "le_te_bump": 0.2,            # Gmsh 'Bump' coefficient: < 1 clusters points at both ends of each side
     "wake_size_chords": 0.05,     # cell size along the wake line behind the trailing edge
     "wake_length_chords": 10.0,
+    # Distance from the airfoil over which the triangle size grows to the far-field size. Kept separate from
+    # the far-field radius so that a far-field sensitivity test does not also change the near-field mesh
+    # (F4b: with DistMax = radius, radius 50 vs 200 changed the triangle count 6,200 vs 48,104).
+    "size_growth_distance_chords": 100.0,
 }
 
 
@@ -121,7 +125,7 @@ def build_mesh(upper, lower, level: str, out_dir, options: dict) -> Path:
         field.setNumber(t_af, "SizeMin", 2 * surf_size)
         field.setNumber(t_af, "SizeMax", o["farfield_size_eff"])
         field.setNumber(t_af, "DistMin", o["bl_thickness_chords"])
-        field.setNumber(t_af, "DistMax", R)
+        field.setNumber(t_af, "DistMax", o["size_growth_distance_chords"])
         wake_end = geo.addPoint(1.0 + o["wake_length_chords"], 0, 0)
         wake = geo.addLine(te, wake_end)
         geo.synchronize()

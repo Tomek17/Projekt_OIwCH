@@ -1,0 +1,85 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 62.71,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 62.71,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00063,
+            "max": 5887.76
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.00001,
+            "max": 2800.25
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_farfield_r200/a+05.00/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 1.098397760516441,
+        "mean": 0.5391179728660855,
+        "n_points": 398
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_farfield_r200/a+05.00/surface_flow.csv",
+      "reason": "max y+ 1.098 above target 1.0 but below fail limit 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1001,
+        "residual_drop_orders": 7.851606785,
+        "rms_rho_first": -4.853607135,
+        "rms_rho_last": -12.70521392,
+        "cl_relative_range": 2.5258396479718123e-06,
+        "cd_relative_range": 1.9698270892192804e-06
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_farfield_r200/a+05.00/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 0.5546278697,
+        "CD": 0.01007702832,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_farfield_r200/a+05.00/results.json",
+      "reason": ""
+    }
+  ]
+}
