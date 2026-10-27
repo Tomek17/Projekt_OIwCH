@@ -1,0 +1,94 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 73.806,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 73.806,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00114,
+            "max": 5917.53
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.00011,
+            "max": 3110.16
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_coarse/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "fail",
+      "value": {
+        "max": 2.216308838540662,
+        "mean": 0.7481524885863791,
+        "n_points": 280
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_coarse/surface_flow.csv",
+      "reason": "max y+ 2.216 > 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1001,
+        "residual_drop_orders": 8.265591386,
+        "rms_rho_first": -4.401201404,
+        "rms_rho_last": -12.66679279,
+        "cl_relative_range": 1.2109720240185474e-06,
+        "cd_relative_range": 5.479026668910947e-07
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_coarse/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 1.072692303,
+        "CD": 0.01850693831,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_coarse/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "not_run",
+      "value": null,
+      "threshold": null,
+      "evidence": null,
+      "reason": "level coarse not among the GCI levels ['xfine', 'fine', 'medium']"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "experiment": "naca0012_gci4_a10",
+  "case": "a+10.00_coarse",
+  "alpha_deg": 10.0,
+  "mesh_level": "coarse",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 40.73,
+  "n_procs": 4,
+  "CL": 1.072692303,
+  "CD": 0.01850693831,
+  "CM": -0.00673322493,
+  "iterations": 1001,
+  "solver_reported_converged": true,
+  "status": "invalid",
+  "status_reasons": [
+    "wall_yplus: FAIL: max y+ 2.216 > 2.0",
+    "gci: not run: level coarse not among the GCI levels ['xfine', 'fine', 'medium']"
+  ]
+}
