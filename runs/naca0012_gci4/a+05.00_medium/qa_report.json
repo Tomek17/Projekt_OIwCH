@@ -1,0 +1,148 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 67.7402,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 67.7402,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00016,
+            "max": 5887.76
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.00001,
+            "max": 2800.25
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci4/a+05.00_medium/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 1.096891305291936,
+        "mean": 0.5393486188116836,
+        "n_points": 398
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci4/a+05.00_medium/surface_flow.csv",
+      "reason": "max y+ 1.097 above target 1.0 but below fail limit 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1001,
+        "residual_drop_orders": 7.826604247,
+        "rms_rho_first": -4.760004053,
+        "rms_rho_last": -12.5866083,
+        "cl_relative_range": 2.2702706195968503e-06,
+        "cd_relative_range": 2.1027785634671745e-06
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci4/a+05.00_medium/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 0.5539871904,
+        "CD": 0.01031968168,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci4/a+05.00_medium/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "pass",
+      "value": {
+        "cells": [
+          150640,
+          75328,
+          37674
+        ],
+        "CL": {
+          "r21": 1.4141384640769756,
+          "r32": 1.4140258589940682,
+          "e21": -0.0008758789999999683,
+          "e32": -0.0020565251999999923,
+          "phi": [
+            0.5569195946,
+            0.5560437156,
+            0.5539871904
+          ],
+          "h": [
+            0.002576498218429393,
+            0.003643525233306806,
+            0.005152038897793219
+          ],
+          "R": 0.4259023910817974,
+          "convergence": "monotonic",
+          "p": 2.464174146553061,
+          "phi_ext": 0.5575689911392082,
+          "e_a": 0.0015727207454947904,
+          "gci_fine": 0.001457563500873669
+        },
+        "CD": {
+          "r21": 1.4141384640769756,
+          "r32": 1.4140258589940682,
+          "e21": 0.00025876373200000094,
+          "e32": 0.0005374746329999992,
+          "phi": [
+            0.009523443315,
+            0.009782207047,
+            0.01031968168
+          ],
+          "h": [
+            0.002576498218429393,
+            0.003643525233306806,
+            0.005152038897793219
+          ],
+          "R": 0.48144361819584014,
+          "convergence": "monotonic",
+          "p": 2.110380725986866,
+          "phi_ext": 0.009283349185399069,
+          "e_a": 0.027171236646353784,
+          "gci_fine": 0.031513566267408526
+        }
+      },
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25
+      },
+      "evidence": "/work/runs/naca0012_gci4/gci_a+05.00.json",
+      "reason": ""
+    }
+  ]
+}

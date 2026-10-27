@@ -1,0 +1,10 @@
+[
+  {
+    "name": "gci",
+    "outcome": "not_run",
+    "value": null,
+    "threshold": null,
+    "evidence": null,
+    "reason": "level coarse not among the GCI levels ['xfine', 'fine', 'medium']"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "experiment": "naca0012_gci4",
+  "case": "a+05.00_xfine",
+  "alpha_deg": 5.0,
+  "mesh_level": "xfine",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 501.22,
+  "n_procs": 4,
+  "CL": 0.5569195946,
+  "CD": 0.009523443315,
+  "CM": -0.001956143119,
+  "iterations": 1262,
+  "solver_reported_converged": true,
+  "status": "valid",
+  "status_reasons": []
+}

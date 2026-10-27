@@ -40,24 +40,35 @@ def _run(args: argparse.Namespace) -> int:
                   f"CM={r.get('CM')} iterations={r.get('iterations')} wall={r['wall_time_s']} s", flush=True)
             worst = worst or int(r["status"] != "valid")
     if exp.mesh_levels and "gci" in exp.required_gates:
-        worst = _gci_for(exp, out) or worst
+        # Before the GCI every case is 'incomplete' (gci NOT_RUN), so the final statuses decide the exit code.
+        worst = _gci_for(exp, out)
     return worst
 
 
 def _gci_for(exp, out: Path) -> int:
+    from nacacfd.airfoil.mesh_gmsh import LEVELS
     from nacacfd.config import load_thresholds
+    from nacacfd.qa.base import GateOutcome, GateResult
     from nacacfd.qa.gci import check_gci
     from nacacfd.qa.report import run_case_gates
     from nacacfd.runner.case import case_name
 
     thr = load_thresholds()
+    # The GCI uses the three finest levels of the study (Celik et al. 2008 is a 3-grid procedure).
+    gci_levels = tuple(sorted(exp.mesh_levels, key=LEVELS.get)[:3])
+    if len(gci_levels) < 3:
+        print(f"GCI needs 3 mesh levels, got {list(gci_levels)}", flush=True)
+        return 1
     worst = 0
     for alpha in exp.alpha_deg:
-        g = check_gci(out, thr, case_name(alpha), levels=("fine", "medium", "coarse"))
+        g = check_gci(out, thr, case_name(alpha), levels=gci_levels)
         print(f"GCI {case_name(alpha)}: {g.outcome.value} {g.reason}", flush=True)
         for level in exp.mesh_levels:
             case = out / f"{case_name(alpha)}_{level}"
-            (case / "experiment_gates.json").write_text(json.dumps([g.to_dict()], indent=2) + "\n")
+            # A level outside the GCI triplet is not covered by its error estimate, so it does not inherit a PASS.
+            gl = g if level in gci_levels else GateResult(
+                "gci", GateOutcome.NOT_RUN, reason=f"level {level} not among the GCI levels {list(gci_levels)}")
+            (case / "experiment_gates.json").write_text(json.dumps([gl.to_dict()], indent=2) + "\n")
             status = run_case_gates(case, exp.required_gates, thr)
             print(f"  {case.name}: {status}")
             worst = worst or int(status != "valid")

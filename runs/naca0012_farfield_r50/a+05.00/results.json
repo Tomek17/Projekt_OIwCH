@@ -1,0 +1,19 @@
+{
+  "experiment": "naca0012_farfield_r50",
+  "case": "a+05.00",
+  "alpha_deg": 5.0,
+  "mesh_level": "medium",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 79.37,
+  "n_procs": 4,
+  "CL": 0.5537013551,
+  "CD": 0.01043310478,
+  "CM": -0.002168634287,
+  "iterations": 1001,
+  "solver_reported_converged": true,
+  "status": "valid",
+  "status_reasons": []
+}
