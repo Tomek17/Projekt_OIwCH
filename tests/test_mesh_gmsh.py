@@ -15,6 +15,7 @@ def test_levels_refine():
     c, m, f, x = (mesh_options({}, lvl, 6e6) for lvl in ("coarse", "medium", "fine", "xfine"))
     assert c["n_surface_points_eff"] < m["n_surface_points_eff"] < f["n_surface_points_eff"] < x["n_surface_points_eff"]
     assert x["first_cell_height"] < f["first_cell_height"] < m["first_cell_height"] < c["first_cell_height"]
+    assert mesh_options({}, "xxfine", 6e6)["first_cell_height"] < x["first_cell_height"]
     assert x["bl_growth_ratio_eff"] < f["bl_growth_ratio_eff"] < m["bl_growth_ratio_eff"] < c["bl_growth_ratio_eff"]
 
 
