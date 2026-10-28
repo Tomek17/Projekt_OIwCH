@@ -1,0 +1,148 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 69.0035,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 69.0035,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.00055,
+            "max": 5875.88
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.0,
+            "max": 2588.62
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_fine/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 1.117345099834989,
+        "mean": 0.37724258757957824,
+        "n_points": 564
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_fine/surface_flow.csv",
+      "reason": "max y+ 1.117 above target 1.0 but below fail limit 2.0"
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1313,
+        "residual_drop_orders": 7.1490324659999995,
+        "rms_rho_first": -4.851464434,
+        "rms_rho_last": -12.0004969,
+        "cl_relative_range": 1.5068220965634485e-06,
+        "cd_relative_range": 4.317717871464418e-07
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_fine/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 1.087720249,
+        "CD": 0.01391938713,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci4_a10/a+10.00_fine/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "pass",
+      "value": {
+        "cells": [
+          150640,
+          75326,
+          37674
+        ],
+        "CL": {
+          "r21": 1.4141572375294014,
+          "r32": 1.4140070872857404,
+          "e21": -0.0014327869999999354,
+          "e32": -0.00650192599999988,
+          "phi": [
+            1.089153036,
+            1.087720249,
+            1.081218323
+          ],
+          "h": [
+            0.002576498218429393,
+            0.0036435736030735345,
+            0.005152038897793219
+          ],
+          "R": 0.2203634738383614,
+          "convergence": "monotonic",
+          "p": 4.3663034138496055,
+          "phi_ext": 1.0895577030741537,
+          "e_a": 0.0013155056751822116,
+          "gci_fine": 0.00046442862111467154
+        },
+        "CD": {
+          "r21": 1.4141572375294014,
+          "r32": 1.4140070872857404,
+          "e21": 0.0006494596000000009,
+          "e32": 0.001451069289999999,
+          "phi": [
+            0.01326992753,
+            0.01391938713,
+            0.01537045642
+          ],
+          "h": [
+            0.002576498218429393,
+            0.0036435736030735345,
+            0.005152038897793219
+          ],
+          "R": 0.44757311347964734,
+          "convergence": "monotonic",
+          "p": 2.321163176453355,
+          "phi_ext": 0.012744163666823523,
+          "e_a": 0.04894221151786508,
+          "gci_fine": 0.04952587928493374
+        }
+      },
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25
+      },
+      "evidence": "/work/runs/naca0012_gci4_a10/gci_a+10.00.json",
+      "reason": ""
+    }
+  ]
+}

@@ -142,3 +142,23 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
   same order as the CL GCI (0.15 %). The far field is not the cause of the divergent CL in F4-1 (a fixed
   far-field error is a constant offset and cancels in the level-to-level differences anyway).
 - Not done: R = 400; no point-vortex far-field correction. Default stays 100 chords.
+
+## Finding F4c-1 (2026-10-27): 4-level grid study, alpha 10
+| Level | Cells | max y+ | Iterations | Wall | CL | CD | Status |
+|---|---|---|---|---|---|---|---|
+| xfine | 150,640 | 0.79 | 1577 | 625 s | 1.089153 | 0.0132699 | valid |
+| fine | 75,326 | 1.12 | 1313 | 213 s | 1.087720 | 0.0139194 | valid |
+| medium | 37,674 | 1.58 | 1077 | 84 s | 1.081218 | 0.0153705 | valid |
+| coarse | 19,014 | 2.22 | 1001 | 41 s | 1.072692 | 0.0185069 | invalid (y+ > 2.0) |
+- GCI on xfine/fine/medium: PASS. CL monotonic (R = 0.22), p = 4.37, GCI_fine = 0.05 %;
+  CD monotonic (R = 0.45), p = 2.32, GCI_fine = 4.95 % (limit 5 %).
+- Caveats the gate does not express:
+  - CD passes with a margin of 0.05 percentage points. Same inputs, a slightly different mesh (the
+    Gmsh non-determinism seen in F4b-1) could flip it.
+  - CL: p = 4.37 is well above the formal 2nd order of the scheme. An observed order far above the formal one
+    usually means the sequence is not cleanly asymptotic, so the 0.05 % is probably optimistic.
+    The gate has no check on p versus the formal order (possible F3 hardening item, needs the student's decision
+    because it would add a criterion).
+- CD error grows with alpha: GCI 3.15 % at alpha 5 vs 4.95 % at alpha 10 on the same meshes. Higher angles
+  (towards stall) will likely need the xfine level as the medium of a finer triplet, i.e. ~300k cells.
+- Nothing here is validated against experiment (F5).

@@ -1,0 +1,23 @@
+{
+  "git_commit": "a40bbd2752b8cf83949d92d9a158a06b6ec30ce2",
+  "git_dirty": "false",
+  "image_id": "sha256:9c7ef367c0330a819178d84648e29296668b44145f2b7514ee258876726ddb9e",
+  "host": "vm",
+  "cpu_count_visible": 4,
+  "python": "3.11.18",
+  "gmsh": "4.15.2",
+  "nacacfd": "0.0.1",
+  "case_dir": "/work/runs/naca0012_gci4_a10/a+10.00_fine",
+  "started_utc": "2026-10-27T21:41:15+00:00",
+  "finished_utc": "2026-10-27T21:44:50+00:00",
+  "command": [
+    "mpirun",
+    "-np",
+    "4",
+    "SU2_CFD",
+    "config.cfg"
+  ],
+  "su2": "8.5.0",
+  "mesh_file": "mesh.su2",
+  "mesh_sha256": "38997868568d274165a439a4d9166d313d89d749e7c0ca6d6bd8d72edf9e6fdc"
+}

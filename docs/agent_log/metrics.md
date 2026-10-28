@@ -72,3 +72,9 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | far field R 50 / 200, final | 79 s / 84 s (SU2) | valid / valid |
 | 4-level study, alpha 5 | 799 s whole experiment (xfine alone 501 s) | GCI PASS; 3 valid, coarse incomplete |
 | Agent errors in this phase | 2 (X-009, X-010) | both detected by the agent before reporting |
+
+## F4c (grid study alpha 10), agent cloud container, 4 MPI ranks
+| Run | Wall | Status |
+|---|---|---|
+| 4-level study, alpha 10 | 973 s whole experiment (xfine alone 625 s) | GCI PASS; 3 valid, coarse invalid (y+ 2.22) |
+| Agent errors in this phase | 0 | |
