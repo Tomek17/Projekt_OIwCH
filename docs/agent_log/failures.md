@@ -230,3 +230,18 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Detected by: the agent, from the error output. Not pushed. Fix: refspec added, commit moved to f5-polar,
   f4g-results reset to its pushed head.
 - Lesson (corrected): `set -e` alone is not enough; run one command per line under `set -e`, no `&&` lists.
+
+## Finding F5-2 (2026-10-28): polar attempt 1 on the laptop stopped; low angles fail the stabilisation window
+- Seen by the student on the laptop (screenshots in the thread): alpha 2 on xxfine `invalid` with residual
+  drop 6.6 orders (rms[Rho] -5.5 -> -12.1) at 1001 iterations, but CL relative range 3.1e-4 > 1e-4 and CD
+  1.5e-3 > 1e-3 over the last 500 iterations. At low alpha the residual reaches the 1e-12 stop before the
+  1000-iteration minimum, so the window still covers the force transient (same pattern as X-005).
+- The gate worked as designed: the point would otherwise have entered the polar with an unverified CL.
+- Decision (student, card): stop, fix, restart. First attempt moved aside by the student to
+  `runs/naca0012_polar_attempt1` on the laptop (not deleted).
+- Fix (solver setting, not a threshold): `min_iterations: 2000` in the polar experiment. Checked in the cloud
+  on the medium mesh at alpha 0 and 2: both `valid`, CL relative range 1.1e-8 and 0 (2001 iterations, 187 s).
+- Also added: `nacacfd run --resume` (skips cases with results.json, never overwrites) and an optional
+  `gates.convergence.cl_reference_magnitude` (denominator max(|mean CL|, ref) for CL near 0). The optional key
+  is NOT set: the medium-mesh check showed alpha 0 passes without it. The agent's worry about alpha 0 was
+  not confirmed.

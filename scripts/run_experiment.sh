@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # One command to run an experiment inside the Docker image, with provenance passed in from the host.
-# Usage (repo root): scripts/run_experiment.sh experiments/<name>.yaml [image]
+# Usage (repo root): scripts/run_experiment.sh experiments/<name>.yaml [image] [extra nacacfd run options, e.g. --resume]
 set -euo pipefail
 EXP="$1"; IMAGE="${2:-nacacfd}"
 cd "$(dirname "$0")/.."
@@ -11,4 +11,4 @@ docker run --rm --user "$(id -u):$(id -g)" -v "$PWD":/work -w /work \
   -e NACACFD_GIT_COMMIT="$COMMIT" -e NACACFD_GIT_DIRTY="$DIRTY" \
   -e NACACFD_IMAGE_ID="$(docker image inspect --format '{{.Id}}' "$IMAGE")" \
   -e NACACFD_HOST="$(hostname)" \
-  "$IMAGE" nacacfd run "$EXP"
+  "$IMAGE" nacacfd run "$EXP" "${@:3}"

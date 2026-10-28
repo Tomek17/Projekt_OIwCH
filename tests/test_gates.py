@@ -39,6 +39,18 @@ def test_convergence_pass(tmp_path, thr):
     assert check_convergence(tmp_path, thr).outcome is GateOutcome.PASS
 
 
+def test_convergence_cl_near_zero_needs_reference_magnitude(tmp_path, thr):
+    # alpha 0: CL settles at ~1e-7 with noise 1e-8, fully converged otherwise.
+    rho, _, cd = converged_series()
+    cl = [1e-7 + 1e-8 * (-1) ** i for i in range(len(rho))]
+    write_history(tmp_path, rho, cl, cd)
+    thr["gates"]["convergence"].pop("cl_reference_magnitude", None)
+    assert check_convergence(tmp_path, thr).outcome is GateOutcome.FAIL
+    thr["gates"]["convergence"]["cl_reference_magnitude"] = 0.1
+    r = check_convergence(tmp_path, thr)
+    assert r.outcome is GateOutcome.PASS and r.value["cl_relative_range"] == pytest.approx(2e-8 / 0.1)
+
+
 def test_convergence_rejects_small_residual_drop(tmp_path, thr):
     rho, cl, cd = converged_series()
     rho = [-4.0 - 2.0 * i / (len(rho) - 1) for i in range(len(rho))]  # only 2 orders

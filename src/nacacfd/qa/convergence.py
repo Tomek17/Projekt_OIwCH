@@ -17,11 +17,12 @@ from nacacfd.runner.convergence import read_history
 NAME = "convergence"
 
 
-def _rel_range(xs: list[float]) -> float:
-    mean = sum(xs) / len(xs)
-    if mean == 0:
+def _rel_range(xs: list[float], ref: float | None = None) -> float:
+    """(max - min) / max(|mean|, ref). `ref` keeps the measure meaningful when the mean is ~0 (CL at alpha 0)."""
+    denom = max(abs(sum(xs) / len(xs)), ref or 0.0)
+    if denom == 0:
         return math.inf
-    return (max(xs) - min(xs)) / abs(mean)
+    return (max(xs) - min(xs)) / denom
 
 
 def check_convergence(case_dir, thresholds: dict) -> GateResult:
@@ -36,7 +37,8 @@ def check_convergence(case_dir, thresholds: dict) -> GateResult:
     n = len(h["CL"])
     window = int(t["window_iterations"])
     thr = {"min_residual_drop_orders": t["min_residual_drop_orders"], "window_iterations": window,
-           "cl_max_relative_range": t["cl_max_relative_range"], "cd_max_relative_range": t["cd_max_relative_range"]}
+           "cl_max_relative_range": t["cl_max_relative_range"], "cd_max_relative_range": t["cd_max_relative_range"],
+           "cl_reference_magnitude": t.get("cl_reference_magnitude")}
     drop = h["rms[Rho]"][0] - h["rms[Rho]"][-1]
     value = {"n_iterations": n, "residual_drop_orders": drop,
              "rms_rho_first": h["rms[Rho]"][0], "rms_rho_last": h["rms[Rho]"][-1]}
@@ -45,7 +47,7 @@ def check_convergence(case_dir, thresholds: dict) -> GateResult:
     if n < window:
         return GateResult(NAME, GateOutcome.NOT_RUN, value, thr, str(hist),
                           f"only {n} iterations, shorter than the stabilisation window {window}")
-    value["cl_relative_range"] = _rel_range(h["CL"][-window:])
+    value["cl_relative_range"] = _rel_range(h["CL"][-window:], t.get("cl_reference_magnitude"))
     value["cd_relative_range"] = _rel_range(h["CD"][-window:])
     problems = []
     if drop < t["min_residual_drop_orders"]:

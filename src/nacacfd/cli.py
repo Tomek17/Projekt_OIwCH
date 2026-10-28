@@ -52,6 +52,11 @@ def _run(args: argparse.Namespace) -> int:
     for alpha in exp.alpha_deg:
         for level in levels:
             name = case_name(alpha) + (f"_{level}" if level else "")
+            if args.resume and (out / name / "results.json").exists():
+                r = json.loads((out / name / "results.json").read_text())
+                print(f"{exp.name}/{name}: already done (status={r['status']}), skipped (--resume)", flush=True)
+                worst = worst or int(r["status"] != "valid")
+                continue
             r = run_case(exp, alpha, out / name, level)
             print(f"{exp.name}/{name}: status={r['status']} CL={r.get('CL')} CD={r.get('CD')} "
                   f"CM={r.get('CM')} iterations={r.get('iterations')} wall={r['wall_time_s']} s", flush=True)
@@ -123,6 +128,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("run", help="run all cases of an experiment (mesh + solve + QA); exit 1 unless all valid")
     p.add_argument("target")
     p.add_argument("--runs-dir", default=str(REPO_ROOT / "runs"))
+    p.add_argument("--resume", action="store_true",
+                   help="skip cases that already have results.json (never overwrites; cases without it are rerun)")
     p.set_defaults(func=_run)
 
     p = sub.add_parser("gci", help="grid study: compute the GCI gate for an experiment with mesh_levels")
