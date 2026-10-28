@@ -86,3 +86,10 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | xfine / fine (re-runs) | 727 s / 285 s | invalid (same) |
 | Whole experiment | 2851 s | |
 | Agent errors in this phase | 0 | the agent's runtime guess "40-60 min" was right (48 min) |
+
+## F4g (alpha 10, quad BL block 0.06 c), agent cloud container, 4 MPI ranks
+| Run | Wall | Status |
+|---|---|---|
+| xxfine / xfine / fine | 2008 s / 762 s / 256 s | valid / valid / valid (GCI PASS) |
+| Whole experiment | 3048 s | |
+| Agent errors in this phase | 1 near-miss (X-011) | |

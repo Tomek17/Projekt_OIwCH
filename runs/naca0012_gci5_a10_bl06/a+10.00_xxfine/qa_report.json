@@ -1,0 +1,149 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 53.4663,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 53.4663,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.0,
+            "max": 5865.52
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.0,
+            "max": 2325.23
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a10_bl06/a+10.00_xxfine/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 0.5595668381343649,
+        "mean": 0.1893696381862279,
+        "n_points": 1130
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a10_bl06/a+10.00_xxfine/surface_flow.csv",
+      "reason": ""
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1805,
+        "residual_drop_orders": 6.682449559,
+        "rms_rho_first": -5.317981021,
+        "rms_rho_last": -12.00043058,
+        "cl_relative_range": 2.081617051225696e-06,
+        "cd_relative_range": 1.783602961602751e-06
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci5_a10_bl06/a+10.00_xxfine/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 1.093862074,
+        "CD": 0.01313632315,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci5_a10_bl06/a+10.00_xxfine/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "pass",
+      "value": {
+        "cells": [
+          319382,
+          160464,
+          80744
+        ],
+        "CL": {
+          "r21": 1.4108031188735557,
+          "r32": 1.4097226475902631,
+          "e21": -0.0014905469999999532,
+          "e32": -0.0036321700000001567,
+          "phi": [
+            1.093862074,
+            1.092371527,
+            1.088739357
+          ],
+          "h": [
+            0.001769476429398975,
+            0.002496382865369317,
+            0.003519207462367401
+          ],
+          "R": 0.41037368845618155,
+          "convergence": "monotonic",
+          "p": 2.597801396845989,
+          "phi_ext": 1.0948935735653402,
+          "e_a": 0.001362646201407613,
+          "gci_fine": 0.0011787358638005979
+        },
+        "CD": {
+          "r21": 1.4108031188735557,
+          "r32": 1.4097226475902631,
+          "e21": 0.00025771259999999956,
+          "e32": 0.0004729164400000003,
+          "phi": [
+            0.01313632315,
+            0.01339403575,
+            0.01386695219
+          ],
+          "h": [
+            0.001769476429398975,
+            0.002496382865369317,
+            0.003519207462367401
+          ],
+          "R": 0.5449432039199132,
+          "convergence": "monotonic",
+          "p": 1.7725809054386408,
+          "phi_ext": 0.012829713425493173,
+          "e_a": 0.0196183206714125,
+          "gci_fine": 0.02917575574665527
+        }
+      },
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25,
+        "max_observed_order": 3.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a10_bl06/gci_a+10.00.json",
+      "reason": ""
+    }
+  ]
+}
