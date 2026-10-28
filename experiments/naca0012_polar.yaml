@@ -1,0 +1,20 @@
+# F5: NACA 0012 polar on the grid-converged mesh family (F4g-1: level xxfine, 0.06 c BL block).
+# Meant to run on the student's laptop (8 physical cores): scripts/run_experiment.sh experiments/naca0012_polar.yaml
+# Angles chosen by the student (decision card 2026-10-28): 0-18 deg every 2 deg plus 15 and 17 near stall.
+name: naca0012_polar
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 15.0, 16.0, 17.0, 18.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: xxfine
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+  bl_thickness_chords: 0.06
+solver:
+  n_procs: 8
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
+notes: "Grid uncertainty comes from the GCI studies at alpha 5 and 10 (not repeated per angle). Not validated until reference data exists (F5)."
