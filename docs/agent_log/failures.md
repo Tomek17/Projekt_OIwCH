@@ -189,3 +189,21 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Reproducibility check: xfine and fine were re-run (different experiment directory). CL agrees with
   naca0012_gci4_a10 to within 8e-6 (fine 75,328 vs 75,326 cells, see F4b-1).
 - Cost: 2851 s for the study; xxfine is ~30 min per angle on 4 vCPU.
+
+## X-011 (2026-10-28): branch switch in the working tree while an experiment was running
+- What: while naca0012_gci5_a10_bl06 was running (the container mounts the working tree and imports code
+  from it), the agent checked out another branch to commit the polar tools, then switched back.
+- Impact check: the modules the running process imports lazily (runner.case, airfoil.mesh_gmsh, qa.*) were
+  identical on both branches (`git diff --stat` touched only cli.py, postprocess/*, tests); cli.py was already
+  loaded. metadata.json records the commit at the start. So no result was affected, but only by luck.
+- Detected by: the agent, right after the switch.
+- Lesson: use a separate `git worktree` for code work while a run uses the main working tree.
+
+## X-012 (2026-10-28): multi-line command continued after its first line failed
+- What: a shell block started with `git checkout -b f4g-results origin/main && ... && plot`, followed by
+  separate lines (append logs, git add, git commit). The first line failed (`origin/main` not a known ref),
+  but the next lines still ran: the log entries and the commit landed on the already-merged branch
+  f4g-bl-thickness, and the figure the log refers to had not been made.
+- Detected by: the agent, from the error output and `git branch --show-current`. Nothing was pushed.
+- Fix: new branch at that commit, figure rendered, commit amended before the first push.
+- Lesson: same family as X-007/X-008. Start multi-step blocks with `set -euo pipefail`.
