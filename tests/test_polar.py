@@ -30,3 +30,12 @@ def test_report_writes_csv_and_png(tmp_path):
     assert main(["report", str(tmp_path)]) == 0
     assert (tmp_path / "polar.csv").read_text().count("\n") == 3
     assert (tmp_path / "polar.png").stat().st_size > 0
+
+
+def test_run_resume_skips_finished_cases(tmp_path, repo_root, capsys):
+    exp_dir = tmp_path / "runs" / "naca0012_a5_smoke"
+    exp_dir.mkdir(parents=True)
+    make_case(exp_dir, "a+05.00", 5.0, 0.55, "valid")
+    experiment = str(repo_root / "experiments" / "naca0012_a5_smoke.yaml")
+    assert main(["run", experiment, "--runs-dir", str(tmp_path / "runs"), "--resume"]) == 0
+    assert "skipped (--resume)" in capsys.readouterr().out

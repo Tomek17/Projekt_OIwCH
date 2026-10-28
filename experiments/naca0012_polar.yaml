@@ -16,5 +16,7 @@ mesh:
   bl_thickness_chords: 0.06
 solver:
   n_procs: 8
+  min_iterations: 2000   # F5: at low alpha the residual reaches 1e-12 before 1000 iterations and the 500-iteration
+                         # stabilisation window still contained the transient (alpha 2 on the laptop, X-005 pattern)
 required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
 notes: "Grid uncertainty comes from the GCI studies at alpha 5 and 10 (not repeated per angle). Not validated until reference data exists (F5)."
