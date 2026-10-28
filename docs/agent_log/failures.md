@@ -162,3 +162,12 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - CD error grows with alpha: GCI 3.15 % at alpha 5 vs 4.95 % at alpha 10 on the same meshes. Higher angles
   (towards stall) will likely need the xfine level as the medium of a finer triplet, i.e. ~300k cells.
 - Nothing here is validated against experiment (F5).
+
+## Finding F4e-1 (2026-10-28): GCI gate re-applied with max_observed_order = 3.0 (set by the student)
+- alpha 5 (naca0012_gci4): PASS unchanged (p 2.46 / 2.11) -> xfine, fine, medium `valid`.
+- alpha 10 (naca0012_gci4_a10): FAIL, "CL: observed order p 4.37 > 3.0" -> xfine, fine, medium `invalid`.
+- naca0012_gci (3 levels): unchanged (alpha 5 FAIL divergent CL, alpha 10 NOT_RUN).
+- Only QA files and statuses changed; no solver result was re-run or edited. The status change came from
+  `nacacfd gci`, not by hand.
+- Near-miss during the edit: the student's first edit put the new key at 8 spaces of indentation, which would
+  have broken loading the YAML. The agent spotted it in the screenshot before it was committed (I-004).

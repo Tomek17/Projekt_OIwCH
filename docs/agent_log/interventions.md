@@ -22,3 +22,5 @@ Format: ID, date, what, why, how long (approx.), category (unblock / redirect / 
 - The agent proposed it as an option after F4c; the student said "let's add that".
 - The threshold must be written by the student into `config/qa_thresholds.yaml` (protected). Until then the
   GCI gate returns NOT_RUN. Status: OPEN until the value is set.
+- 2026-10-28: CLOSED. The student set `max_observed_order: 3.0` in the GitHub web editor (commit b706b36),
+  after the agent gave step-by-step instructions and caught a wrong indentation in the first attempt.

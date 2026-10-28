@@ -14,6 +14,8 @@
   "CM": -0.006466569109,
   "iterations": 1577,
   "solver_reported_converged": true,
-  "status": "valid",
-  "status_reasons": []
+  "status": "invalid",
+  "status_reasons": [
+    "gci: FAIL: CL: observed order p 4.37 > 3.0 (not asymptotic, GCI unreliable)"
+  ]
 }

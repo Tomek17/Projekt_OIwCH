@@ -56,7 +56,8 @@
     "threshold": {
       "max_gci_fine_cl_percent": 2.0,
       "max_gci_fine_cd_percent": 5.0,
-      "safety_factor": 1.25
+      "safety_factor": 1.25,
+      "max_observed_order": 3.0
     },
     "evidence": "/work/runs/naca0012_gci4/gci_a+05.00.json",
     "reason": ""
