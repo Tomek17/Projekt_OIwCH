@@ -84,7 +84,7 @@
     },
     {
       "name": "gci",
-      "outcome": "pass",
+      "outcome": "fail",
       "value": {
         "cells": [
           150640,
@@ -139,10 +139,11 @@
       "threshold": {
         "max_gci_fine_cl_percent": 2.0,
         "max_gci_fine_cd_percent": 5.0,
-        "safety_factor": 1.25
+        "safety_factor": 1.25,
+        "max_observed_order": 3.0
       },
       "evidence": "/work/runs/naca0012_gci4_a10/gci_a+10.00.json",
-      "reason": ""
+      "reason": "CL: observed order p 4.37 > 3.0 (not asymptotic, GCI unreliable)"
     }
   ]
 }
