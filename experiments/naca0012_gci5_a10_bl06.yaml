@@ -1,0 +1,20 @@
+# F4g: as naca0012_gci5_a10 but with a thicker quad boundary-layer block (0.06 c instead of 0.03 c). GCI on
+# xxfine, xfine, fine (~300k, 150k, 75k cells).
+name: naca0012_gci5_a10_bl06
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [10.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: medium
+mesh_levels: [xxfine, xfine, fine]
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+  bl_thickness_chords: 0.06   # F4g: suction-side BL at alpha 10 reaches ~0.05 c at the TE (eddy-viscosity extent), > 0.03 c default
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags, gci]
+notes: "F4g: tests the hypothesis that CL does not converge at alpha 10 because the BL is thicker than the quad block."
