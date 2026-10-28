@@ -10,8 +10,6 @@ import pytest
 STUBS = {
     "nacacfd.airfoil.naca": ["naca5_coordinates"],
     "nacacfd.runner.sweep": ["run_sweep"],
-    "nacacfd.postprocess.polars": ["collect_polar"],
-    "nacacfd.postprocess.plots": ["plot_polar"],
     "nacacfd.postprocess.compare": ["load_reference", "deviations"],
     "nacacfd.qa.validation": ["check_validation"],
 }
@@ -27,7 +25,7 @@ def test_stub_raises_not_implemented(module, func):
         fn(*([None] * n_args))
 
 
-@pytest.mark.parametrize("command", ["mesh", "report"])
+@pytest.mark.parametrize("command", ["mesh"])
 def test_cli_stub_commands_raise(command):
     from nacacfd.cli import main
 
