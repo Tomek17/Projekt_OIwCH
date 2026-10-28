@@ -17,3 +17,8 @@ Format: ID, date, what, why, how long (approx.), category (unblock / redirect / 
 - What: the agent recommended a mixed setup (agent cloud container + paid VM); the student asked to compute
   locally for free. The agent then guided the WSL2 + Docker setup through copy-pasted commands and screenshots.
 - Category: redirect. ~15 min. See D-004.
+
+## I-004 (2026-10-28): student asked for a new GCI criterion (observed order check)
+- The agent proposed it as an option after F4c; the student said "let's add that".
+- The threshold must be written by the student into `config/qa_thresholds.yaml` (protected). Until then the
+  GCI gate returns NOT_RUN. Status: OPEN until the value is set.

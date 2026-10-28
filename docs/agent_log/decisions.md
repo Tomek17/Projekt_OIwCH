@@ -118,3 +118,13 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 ## D-019 (2026-10-27): mesh size growth distance separate from the far-field radius
 - New parameter `size_growth_distance_chords` (default 100) so a far-field test changes only the outer
   region (X-009). With the default, all earlier 100-chord meshes are unchanged.
+
+## D-020 (2026-10-28): GCI gate fails when the observed order p is far above the formal order
+- Requested by the student after Finding F4c-1 (alpha 10 CL: p = 4.37 vs formal 2nd order).
+- Rule: p > `gates.gci.max_observed_order` -> FAIL. If the key is missing, the gate is NOT_RUN, so nothing
+  passes before the student sets the value. The agent cannot write the thresholds file (hook, CLAUDE.md rule 5).
+- Proposed value (to be confirmed by the student): 3.0 = formal order 2 plus a margin of 1. This is the
+  agent's judgement, not a number from Celik et al. (2008).
+- Expected effect on existing studies (not yet re-applied): alpha 5 (p 2.46 / 2.11) stays PASS;
+  alpha 10 (CL p 4.37) becomes FAIL -> xfine/fine/medium at alpha 10 `invalid`.
+- Not added: a lower bound on p (p well below formal order); possible later, also the student's call.

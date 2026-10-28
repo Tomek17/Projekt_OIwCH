@@ -14,6 +14,11 @@ Index 1 = finest grid, 3 = coarsest. h = (1 / N)^(1/2) in 2D, N = number of cell
   GCI_fine = Fs e_a / (r21^p - 1)
 Convergence type from R = e21/e32: 0 < R < 1 monotonic, R < 0 oscillatory, R > 1 divergent.
 Only monotonic convergence gives a GCI here; the other cases are reported, not forced into a number.
+
+Observed-order check (F4d, requested by the student): an observed order p far above the formal order of the
+scheme (2nd order here) suggests the grids are not in the asymptotic range, and the GCI is then likely
+optimistic. p above `max_observed_order` (config/qa_thresholds.yaml) is a FAIL. If the threshold is not set,
+the gate is NOT_RUN (never a silent pass).
 """
 
 from __future__ import annotations
@@ -78,8 +83,13 @@ def check_gci(study_dir, thresholds: dict, alpha_case: str, levels=("fine", "med
     t = thresholds["gates"][NAME]
     study_dir = Path(study_dir)
     cases = [study_dir / f"{alpha_case}_{lvl}" for lvl in levels]
+    max_p = t.get("max_observed_order")
     thr = {"max_gci_fine_cl_percent": t["max_gci_fine_cl_percent"],
-           "max_gci_fine_cd_percent": t["max_gci_fine_cd_percent"], "safety_factor": t["safety_factor"]}
+           "max_gci_fine_cd_percent": t["max_gci_fine_cd_percent"], "safety_factor": t["safety_factor"],
+           "max_observed_order": max_p}
+    if max_p is None:
+        return GateResult(NAME, GateOutcome.NOT_RUN, threshold=thr,
+                          reason="max_observed_order not set in config/qa_thresholds.yaml (needs the student)")
     for c in cases:
         if not (c / "results.json").exists() or not (c / "mesh_info.json").exists():
             return GateResult(NAME, GateOutcome.NOT_RUN, threshold=thr, reason=f"{c.name}: results or mesh info missing")
@@ -100,6 +110,8 @@ def check_gci(study_dir, thresholds: dict, alpha_case: str, levels=("fine", "med
             problems.append(f"{q}: {g['convergence']} convergence, no GCI")
         elif 100 * g["gci_fine"] > lim:
             problems.append(f"{q}: GCI_fine {100 * g['gci_fine']:.2f}% > {lim}%")
+        if g["p"] is not None and g["p"] > max_p:
+            problems.append(f"{q}: observed order p {g['p']:.2f} > {max_p} (not asymptotic, GCI unreliable)")
     evidence = str(study_dir / f"gci_{alpha_case}.json")
     Path(evidence).write_text(json.dumps(value, indent=2) + "\n")
     if problems:

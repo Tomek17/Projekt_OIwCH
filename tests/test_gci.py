@@ -56,7 +56,10 @@ def make_study(tmp_path, cl, cd, cells=(80000, 40000, 20000), case_gates_ok=True
 
 @pytest.fixture
 def thr(repo_root):
-    return load_thresholds(repo_root / "config" / "qa_thresholds.yaml")
+    t = load_thresholds(repo_root / "config" / "qa_thresholds.yaml")
+    # Test value only, used while the student has not set max_observed_order in the config.
+    t["gates"]["gci"].setdefault("max_observed_order", 3.0)
+    return t
 
 
 def test_gate_pass_on_well_converged_study(tmp_path, thr):
@@ -82,3 +85,18 @@ def test_gate_fails_on_large_gci(tmp_path, thr):
     r = check_gci(tmp_path, thr, "a+05.00")
     assert r.outcome is GateOutcome.FAIL and "CL: GCI_fine" in r.reason
     assert math.isfinite(r.value["CL"]["gci_fine"])
+
+
+def test_gate_fails_when_observed_order_is_far_above_formal(tmp_path, thr):
+    h = [representative_h(n) for n in (80000, 40000, 20000)]
+    make_study(tmp_path, [0.56 + 0.5 * x ** 2 for x in h], [0.0100 + 1e3 * x ** 4.5 for x in h])
+    r = check_gci(tmp_path, thr, "a+05.00")
+    assert r.outcome is GateOutcome.FAIL and "CD: observed order p 4.50" in r.reason
+
+
+def test_gate_not_run_without_order_threshold(tmp_path, thr):
+    h = [representative_h(n) for n in (80000, 40000, 20000)]
+    make_study(tmp_path, [0.56 + 0.5 * x ** 2 for x in h], [0.0100 + 0.5 * x ** 2 for x in h])
+    thr["gates"]["gci"]["max_observed_order"] = None
+    r = check_gci(tmp_path, thr, "a+05.00")
+    assert r.outcome is GateOutcome.NOT_RUN and "max_observed_order" in r.reason
