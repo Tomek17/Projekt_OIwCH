@@ -78,3 +78,11 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 |---|---|---|
 | 4-level study, alpha 10 | 973 s whole experiment (xfine alone 625 s) | GCI PASS; 3 valid, coarse invalid (y+ 2.22) |
 | Agent errors in this phase | 0 | |
+
+## F4f (alpha 10, xxfine/xfine/fine), agent cloud container, 4 MPI ranks
+| Run | Wall | Status |
+|---|---|---|
+| xxfine (300,152 cells) | 1821 s, 1832 iterations | invalid (GCI FAIL, CL divergent) |
+| xfine / fine (re-runs) | 727 s / 285 s | invalid (same) |
+| Whole experiment | 2851 s | |
+| Agent errors in this phase | 0 | the agent's runtime guess "40-60 min" was right (48 min) |

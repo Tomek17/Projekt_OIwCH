@@ -16,8 +16,8 @@ from pathlib import Path
 # wake and far-field cell size), so the levels are systematically refined (needed for GCI, F4).
 # Refinement ratio between neighbouring levels: sqrt(2) in each direction, ~2 in cell count.
 # "medium" (s = 1) is the reference level used in F2.
-# "xfine" (F4b) extends the sequence one more step to check whether CL enters the asymptotic range.
-LEVELS = {"coarse": 2 ** 0.5, "medium": 1.0, "fine": 2 ** -0.5, "xfine": 0.5}
+# "xfine" (F4b) and "xxfine" (F4f, alpha 10) extend the sequence one more step to check whether CL enters the asymptotic range.
+LEVELS = {"coarse": 2 ** 0.5, "medium": 1.0, "fine": 2 ** -0.5, "xfine": 0.5, "xxfine": 2 ** -1.5}
 
 MESH_DEFAULTS = {
     "target_yplus": 1.0,

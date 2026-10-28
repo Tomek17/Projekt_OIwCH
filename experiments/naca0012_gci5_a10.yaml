@@ -1,0 +1,19 @@
+# F4f: alpha 10 one level finer than naca0012_gci4_a10 (CL p 4.37 > 3.0 there). The GCI gate uses
+# xxfine, xfine, fine (~300k, 150k, 75k cells).
+name: naca0012_gci5_a10
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [10.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: medium
+mesh_levels: [xxfine, xfine, fine]
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+solver:
+  n_procs: 4
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags, gci]
+notes: "F4f: student asked for a finer mesh at alpha 10; the polar will use the same mesh level if this passes."

@@ -171,3 +171,21 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
   `nacacfd gci`, not by hand.
 - Near-miss during the edit: the student's first edit put the new key at 8 spaces of indentation, which would
   have broken loading the YAML. The agent spotted it in the screenshot before it was committed (I-004).
+
+## Finding F4f-1 (2026-10-28): alpha 10 on xxfine/xfine/fine (student asked for a finer mesh)
+| Level | Cells | max y+ | Iterations | Wall | CL | CD |
+|---|---|---|---|---|---|---|
+| xxfine | 300,152 | 0.56 | 1832 | 1821 s | 1.090786 | 0.0129522 |
+| xfine | 150,640 | 0.79 | 1573 | 727 s | 1.089152 | 0.0132699 |
+| fine | 75,328 | 1.12 | 1314 | 285 s | 1.087713 | 0.0139193 |
+- CD: monotonic (R = 0.49), p = 2.05, GCI_fine = 2.98 % -> would pass.
+- CL: divergent (R = 1.14): the change per level is ~0.0015 (0.14 %) and no longer shrinks -> GCI FAIL,
+  all three cases `invalid`. The size of the change is small compared with the 2 % CL limit; the gate fails on
+  the pattern (no error bound possible), not on the size.
+- Level-to-level CL changes at alpha 10 over five levels: 0.0085, 0.0065, 0.0014, 0.0016 (coarse->xxfine).
+- Agent's hypotheses (none tested): parts of the mesh do not refine with the level (boundary-layer quad block
+  thickness fixed at 0.03 c, wake band fixed at 5 c, far field fixed), so a fixed error component remains;
+  Gmsh unstructured triangles do not refine geometrically similarly.
+- Reproducibility check: xfine and fine were re-run (different experiment directory). CL agrees with
+  naca0012_gci4_a10 to within 8e-6 (fine 75,328 vs 75,326 cells, see F4b-1).
+- Cost: 2851 s for the study; xxfine is ~30 min per angle on 4 vCPU.

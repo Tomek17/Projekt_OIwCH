@@ -1,0 +1,21 @@
+{
+  "experiment": "naca0012_gci5_a10",
+  "case": "a+10.00_xfine",
+  "alpha_deg": 10.0,
+  "mesh_level": "xfine",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 727.34,
+  "n_procs": 4,
+  "CL": 1.089151776,
+  "CD": 0.01326989201,
+  "CM": -0.006466849875,
+  "iterations": 1573,
+  "solver_reported_converged": true,
+  "status": "invalid",
+  "status_reasons": [
+    "gci: FAIL: CL: divergent convergence, no GCI"
+  ]
+}

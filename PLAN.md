@@ -40,7 +40,7 @@ input is REJECTED (truncated run, too thick first cell, oscillating cL, ...).
 - [x] alpha 5: GCI PASS on xfine/fine/medium (Finding F4b-1); far field 100 chords checked (F4b-2)
 - [x] alpha 10 with the 4-level setup: CD 4.95 % close to the limit, CL p = 4.37 (Finding F4c-1)
 - [x] Observed-order check (max p 3.0, student's value): alpha 5 PASS, alpha 10 FAIL (Finding F4e-1)
-- [ ] alpha 10: a grid-converged answer (finer triplet or different mesh); to be decided with the student
+- [ ] alpha 10: a grid-converged answer. xxfine tried (F4f-1): CD converges (GCI 2.98 %), CL does not (R 1.14); next step to be decided with the student
 - [ ] Grid choice for the polar (F5/F6): fine or xfine; to be decided with the student
 **Acceptance:** GCI for cL and cD at two angles of attack (to be confirmed); observed order p reported;
 non-monotonic convergence is reported as such instead of forcing a GCI number.
