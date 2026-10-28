@@ -41,7 +41,7 @@ input is REJECTED (truncated run, too thick first cell, oscillating cL, ...).
 - [x] alpha 10 with the 4-level setup: CD 4.95 % close to the limit, CL p = 4.37 (Finding F4c-1)
 - [x] Observed-order check (max p 3.0, student's value): alpha 5 PASS, alpha 10 FAIL (Finding F4e-1)
 - [x] alpha 10: grid-converged with a 0.06 c boundary-layer block (F4g-1): CL GCI 0.12 %, CD 2.92 %
-- [ ] alpha 5 re-check with the 0.06 c block
+- [x] alpha 5 re-check with the 0.06 c block: GCI PASS, CL 0.21 %, CD 2.97 % (Finding F5-1)
 - [ ] Grid choice for the polar (F5/F6): fine or xfine; to be decided with the student
 **Acceptance:** GCI for cL and cD at two angles of attack (to be confirmed); observed order p reported;
 non-monotonic convergence is reported as such instead of forcing a GCI number.
