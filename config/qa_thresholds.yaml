@@ -28,6 +28,7 @@ gates:
     max_gci_fine_cl_percent: 2.0
     max_gci_fine_cd_percent: 5.0
     safety_factor: 1.25             # value commonly used with 3 grids; confirm against the cited procedure in F4
+    max_observed_order: 3.0         # formal order 2 + margin 1; agent's proposal, confirmed by the student
   validation:
     status: undefined               # tolerance set only after seeing the reference data and its uncertainty
     cl_tolerance: null
