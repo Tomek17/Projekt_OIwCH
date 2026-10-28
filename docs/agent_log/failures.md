@@ -207,3 +207,26 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Detected by: the agent, from the error output and `git branch --show-current`. Nothing was pushed.
 - Fix: new branch at that commit, figure rendered, commit amended before the first push.
 - Lesson: same family as X-007/X-008. Start multi-step blocks with `set -euo pipefail`.
+
+## Finding F5-1 (2026-10-28): alpha 5 re-checked on the polar mesh family (0.06 c BL block)
+| Level | Cells | max y+ | Iterations | Wall | CL | CD |
+|---|---|---|---|---|---|---|
+| xxfine | 319,382 | 0.39 | 1423 | 1501 s | 0.557438 | 0.0095196 |
+| xfine | 160,482 | 0.55 | 1269 | 602 s | 0.556747 | 0.0096396 |
+| fine | 80,744 | 0.78 | 1061 | 214 s | 0.555554 | 0.0098227 |
+- GCI PASS: CL monotonic (R 0.58), p = 1.60, GCI_fine = 0.21 %; CD monotonic (R 0.66), p = 1.24,
+  GCI_fine = 2.97 %. All three `valid`.
+- Observed orders are below the formal 2nd order here (no lower bound on p in the gate, see D-020). With
+  p < 2 the GCI is larger than with p = 2, so it errs on the safe side; noted, not acted on.
+- Cross-check between mesh families: Richardson-extrapolated CD 0.009293 (0.06 c block) vs 0.009283
+  (0.03 c block, F4b-1), CL 0.55838 vs 0.55757. The extrapolated values agree within 0.1-0.15 %, although
+  the individual meshes differ by up to 1.2 % in CD. Consistent, but not a validation against experiment.
+
+## X-013 (2026-10-28): X-012 repeated within the hour, despite the written lesson
+- What: the next block started with `set -euo pipefail`, but its first line was an `&&` list; bash does not
+  exit on a failure inside an `&&` list (only on its last command), so after `git checkout -b f5-polar
+  origin/f5-polar-tools` failed the later lines ran and committed the new experiment onto the PR #12 branch.
+- Root cause of both: the clone had no `remote.origin.fetch` refspec, so `origin/<branch>` refs did not exist.
+- Detected by: the agent, from the error output. Not pushed. Fix: refspec added, commit moved to f5-polar,
+  f4g-results reset to its pushed head.
+- Lesson (corrected): `set -e` alone is not enough; run one command per line under `set -e`, no `&&` lists.

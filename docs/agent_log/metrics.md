@@ -93,3 +93,10 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | xxfine / xfine / fine | 2008 s / 762 s / 256 s | valid / valid / valid (GCI PASS) |
 | Whole experiment | 3048 s | |
 | Agent errors in this phase | 1 near-miss (X-011) | |
+
+## F5 prep (alpha 5 re-check, 0.06 c BL), agent cloud container, 4 MPI ranks
+| Run | Wall | Status |
+|---|---|---|
+| xxfine / xfine / fine | 1501 s / 602 s / 214 s | valid / valid / valid (GCI PASS) |
+| Whole experiment | 2334 s | |
+| Agent errors in this phase | 1 (X-013, repeat of X-012) | |

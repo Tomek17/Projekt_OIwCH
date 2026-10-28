@@ -1,0 +1,149 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags",
+    "gci"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 69.3149,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 69.3149,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.0,
+            "max": 5873.08
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.0,
+            "max": 2438.59
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a05_bl06/a+05.00_xfine/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 0.5498172769071392,
+        "mean": 0.27078474311554984,
+        "n_points": 798
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a05_bl06/a+05.00_xfine/surface_flow.csv",
+      "reason": ""
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 1269,
+        "residual_drop_orders": 6.773698791000001,
+        "rms_rho_first": -5.226491649,
+        "rms_rho_last": -12.00019044,
+        "cl_relative_range": 3.621399642052744e-06,
+        "cd_relative_range": 4.187949048843603e-06
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001
+      },
+      "evidence": "/work/runs/naca0012_gci5_a05_bl06/a+05.00_xfine/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 0.556747003,
+        "CD": 0.009639575412,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_gci5_a05_bl06/a+05.00_xfine/results.json",
+      "reason": ""
+    },
+    {
+      "name": "gci",
+      "outcome": "pass",
+      "value": {
+        "cells": [
+          319382,
+          160482,
+          80744
+        ],
+        "CL": {
+          "r21": 1.410723997326424,
+          "r32": 1.4098017129759202,
+          "e21": -0.0006905372000000076,
+          "e32": -0.0011934369999999639,
+          "phi": [
+            0.5574375402,
+            0.556747003,
+            0.555553566
+          ],
+          "h": [
+            0.001769476429398975,
+            0.00249624286165661,
+            0.003519207462367401
+          ],
+          "R": 0.5786121931865934,
+          "convergence": "monotonic",
+          "p": 1.5971813744143084,
+          "phi_ext": 0.5583801872758822,
+          "e_a": 0.0012387705351746736,
+          "gci_fine": 0.002113795286248485
+        },
+        "CD": {
+          "r21": 1.410723997326424,
+          "r32": 1.4098017129759202,
+          "e21": 0.0001199919649999999,
+          "e32": 0.00018312978300000053,
+          "phi": [
+            0.009519583447,
+            0.009639575412,
+            0.009822705195
+          ],
+          "h": [
+            0.001769476429398975,
+            0.00249624286165661,
+            0.003519207462367401
+          ],
+          "R": 0.6552291114766381,
+          "convergence": "monotonic",
+          "p": 1.235400669938173,
+          "phi_ext": 0.009293077200060288,
+          "e_a": 0.012604749532167203,
+          "gci_fine": 0.029742142631657514
+        }
+      },
+      "threshold": {
+        "max_gci_fine_cl_percent": 2.0,
+        "max_gci_fine_cd_percent": 5.0,
+        "safety_factor": 1.25,
+        "max_observed_order": 3.0
+      },
+      "evidence": "/work/runs/naca0012_gci5_a05_bl06/gci_a+05.00.json",
+      "reason": ""
+    }
+  ]
+}
