@@ -1,6 +1,6 @@
 """Command-line entry point: `nacacfd <command> ...`.
 
-Status: `validate-config`, `run` (file meshes) and `qa` implemented; `mesh` and `report` are stubs.
+Status: `validate-config`, `run` (file meshes) and `qa`, `gci` and `report` implemented; `mesh` is a stub.
 """
 
 from __future__ import annotations
@@ -16,6 +16,23 @@ from nacacfd.config import REPO_ROOT, load_experiment
 
 def _not_implemented(args: argparse.Namespace) -> int:
     raise NotImplementedError(f"`nacacfd {args.command}` is not implemented yet (see PLAN.md)")
+
+
+def _report(args: argparse.Namespace) -> int:
+    from nacacfd.postprocess.plots import plot_polar
+    from nacacfd.postprocess.polars import collect_polar, write_polar_csv
+
+    exp_dir = Path(args.target)
+    rows = collect_polar(exp_dir)
+    if not rows:
+        print(f"no cases with results.json in {exp_dir}")
+        return 1
+    write_polar_csv(rows, exp_dir / "polar.csv")
+    plot_polar(rows, out_path=exp_dir / "polar.png")
+    for r in rows:
+        print(f"{r['case']}: alpha={r['alpha_deg']} CL={r['CL']} CD={r['CD']} {r['status']} {r['not_passed']}")
+    print(f"wrote {exp_dir / 'polar.csv'} and {exp_dir / 'polar.png'} (no reference data)")
+    return 0
 
 
 def _validate_config(args: argparse.Namespace) -> int:
@@ -117,9 +134,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("target")
     p.set_defaults(func=_qa)
 
+    p = sub.add_parser("report", help="build polar.csv and polar.png from runs/<experiment>")
+    p.add_argument("target")
+    p.set_defaults(func=_report)
+
     for name, help_text in [
         ("mesh", "generate geometry and mesh for an experiment"),
-        ("report", "build polars, tables and figures from runs/<experiment>"),
     ]:
         p = sub.add_parser(name, help=help_text)
         p.add_argument("target")
