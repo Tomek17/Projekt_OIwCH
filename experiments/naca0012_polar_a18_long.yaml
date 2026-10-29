@@ -1,11 +1,12 @@
 # F5 follow-up: alpha 17 and 18 of naca0012_polar were `invalid` (convergence): the residual reached 1e-12 at
 # 2775 / 3792 iterations while CL was still rising monotonically (F5-5). Same mesh and physics as the polar;
 # only the minimum iteration count is raised so the stabilisation window sits after the slow drift.
-# Thresholds unchanged. Run in the agent cloud container (4 vCPU) so the student's laptop stays free.
-name: naca0012_polar_stall
+# Thresholds unchanged. Run in the agent cloud container (4 vCPU); one angle per experiment so each run fits a
+# 2-hour tracked background job (attempt 001 with both angles was killed with the container, X-015).
+name: naca0012_polar_a18_long
 airfoil: NACA0012
 geometry_variant: standard_closed_te
-alpha_deg: [17.0, 18.0]
+alpha_deg: [18.0]
 reynolds: 6.0e6
 mach: 0.15
 turbulence_model: SA
