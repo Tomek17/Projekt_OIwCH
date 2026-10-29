@@ -108,5 +108,6 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | alpha 14 | 20000 (cap) | 12406 s | valid |
 | alpha 15 / 16 | 2115 / 2175 | 1311 / 1336 s | valid / valid |
 | alpha 17 / 18 | 2775 / 3792 | 1720 / 2354 s | invalid / invalid |
-| Whole experiment | | 16.0 h (16:16 to 08:18 UTC) | 9 valid, 3 invalid |
-| Laptop vs cloud speed | | ~0.64 s/iteration on 8 ranks vs ~1.05 s on 4 vCPU | agent's estimate 20-25 min/angle was close (21-22 min); total estimate 4-6 h was wrong because of alpha 14 |
+| Whole experiment | | 16.0 h elapsed (16:16 to 08:18 UTC), ~8.3 h of computing | 9 valid, 3 invalid |
+| Idle gap | | alpha 16 started 22:58, finished 07:06 (8.1 h elapsed) but measured 1336 s: the laptop was most likely suspended overnight (not confirmed with the student) | |
+| Laptop vs cloud speed | | ~0.64 s/iteration on 8 ranks vs ~1.05 s on 4 vCPU | agent's estimate 20-25 min/angle was close (21-22 min); total estimate 4-6 h was low: ~8.3 h of computing, mainly alpha 14 (3.4 h at the iteration cap) |

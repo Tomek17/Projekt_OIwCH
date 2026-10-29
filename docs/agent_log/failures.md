@@ -248,7 +248,7 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 
 ## Finding F5-3 (2026-10-29): polar on the laptop, 9 of 12 angles valid
 - Run on the student's laptop (8 MPI ranks, commit 7dd653f, clean tree), 2026-10-28 16:16 to 2026-10-29 08:18 UTC
-  (16.0 h). Results pushed by the student to branch `f5-polar-results` (small files only, no vtu/mesh/restart).
+  (16.0 h elapsed, ~8.3 h computing; alpha 16 shows an 8 h gap, most likely the laptop was suspended). Results pushed by the student to branch `f5-polar-results` (small files only, no vtu/mesh/restart).
 - valid: alpha 2, 4, 6, 8, 10, 12, 14, 15, 16. invalid: alpha 0, 17, 18 (all convergence gate). y+ max <= 0.75.
 - alpha 0: CL = -4.51e-5, last-500 range 8e-9 (absolute), residual drop 7.8 orders. Fails only because the
   relative range divides by |mean CL| ~ 0 (1.78e-4 > 1e-4). The agent had predicted this risk, then dismissed it
@@ -259,7 +259,7 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
   stop does not see. The gate rejected them correctly. Rerun with min_iterations 6000 in the cloud
   (`experiments/naca0012_polar_stall.yaml`), thresholds unchanged.
 - alpha 14: residual plateaued at 10^-11.45 and never reached the 1e-12 stop, so SU2 ran to the 20,000-iteration
-  cap (12,406 s = 3.4 h of the 16 h). CL was constant to ~1e-8 from about iteration 2000. Result valid, time wasted.
+  cap (12,406 s = 3.4 h of ~8.3 h computing). CL was constant to ~1e-8 from about iteration 2000. Result valid, time wasted.
   Possible fix (not done): a force-based stop (SU2 Cauchy criterion) next to the residual stop.
 - Reproducibility across machines: alpha 10 laptop (8 ranks, own image build) vs cloud (4 ranks, F4g):
   CL 1.093860 vs 1.093862, CD 0.01313631 vs 0.01313632. Same mesh statistics (319,382 elements), but the
