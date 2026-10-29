@@ -270,3 +270,12 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
   (password auth is not supported). The student pasted all commands at once into the `gh auth login` prompt.
 - Detected from the student's screenshots. Fixed with `git config user.*`, `gh auth login` (device code), `gh auth setup-git`.
 - Lesson: check prerequisites (identity, auth) before giving push commands; ask for one command at a time.
+
+## X-015 (2026-10-29): long rerun started with plain `nohup` died with the cloud container
+- The alpha 17/18 rerun (both angles, ~3.5 h) was launched with `nohup ... &`, untracked by the session harness.
+  Within ~10 min the container was restarted (dockerd and SU2 gone, 234 iterations written, no exit line in the log).
+  Detected by the agent when `docker ps` failed while checking progress, before reporting anything.
+- No result was lost or reported; the partial run is archived in `runs/_attempts/naca0012_polar_stall_001_killed/`.
+- Fix: one angle per experiment (`naca0012_polar_a17_long.yaml`, `..._a18_long.yaml`), each run as a tracked
+  background job (2 h limit), which keeps the session alive and reports the exit.
+- Lesson: in the cloud session, long jobs must be tracked by the harness; `nohup` is not enough.
