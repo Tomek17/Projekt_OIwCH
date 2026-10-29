@@ -1,0 +1,86 @@
+{
+  "thresholds_version": 1,
+  "required": [
+    "mesh_quality",
+    "wall_yplus",
+    "convergence",
+    "physics_flags"
+  ],
+  "gates": [
+    {
+      "name": "mesh_quality",
+      "outcome": "pass",
+      "value": {
+        "min_orthogonality_angle_deg": 67.7964,
+        "su2_quality_table": {
+          "Orthogonality Angle (deg.)": {
+            "min": 67.7964,
+            "max": 90.0
+          },
+          "CV Face Area Aspect Ratio": {
+            "min": 1.0,
+            "max": 5865.52
+          },
+          "CV Sub-Volume Ratio": {
+            "min": 1.0,
+            "max": 2325.23
+          }
+        },
+        "aspect_ratio_check": "not implemented (threshold undefined)"
+      },
+      "threshold": {
+        "min_orthogonality_angle_deg": 20.0
+      },
+      "evidence": "/work/runs/naca0012_polar_a17_long/a+17.00/solver.log",
+      "reason": ""
+    },
+    {
+      "name": "wall_yplus",
+      "outcome": "pass",
+      "value": {
+        "max": 0.7358853965714484,
+        "mean": 0.1707389636889793,
+        "n_points": 1130
+      },
+      "threshold": {
+        "target_max": 1.0,
+        "fail_above": 2.0
+      },
+      "evidence": "/work/runs/naca0012_polar_a17_long/a+17.00/surface_flow.csv",
+      "reason": ""
+    },
+    {
+      "name": "convergence",
+      "outcome": "pass",
+      "value": {
+        "n_iterations": 6001,
+        "residual_drop_orders": 9.414898856,
+        "rms_rho_first": -5.154069484,
+        "rms_rho_last": -14.56896834,
+        "cl_relative_range": 1.7809469624324088e-09,
+        "cd_relative_range": 8.245978187497214e-09
+      },
+      "threshold": {
+        "min_residual_drop_orders": 5.0,
+        "window_iterations": 500,
+        "cl_max_relative_range": 0.0001,
+        "cd_max_relative_range": 0.001,
+        "cl_reference_magnitude": null
+      },
+      "evidence": "/work/runs/naca0012_polar_a17_long/a+17.00/history.csv",
+      "reason": ""
+    },
+    {
+      "name": "physics_flags",
+      "outcome": "pass",
+      "value": {
+        "CL": 1.684497117,
+        "CD": 0.0303178101,
+        "near_stall_check": "experiment-level, not in this gate"
+      },
+      "threshold": null,
+      "evidence": "/work/runs/naca0012_polar_a17_long/a+17.00/results.json",
+      "reason": ""
+    }
+  ]
+}

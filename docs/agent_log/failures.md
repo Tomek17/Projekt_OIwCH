@@ -279,3 +279,15 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Fix: one angle per experiment (`naca0012_polar_a17_long.yaml`, `..._a18_long.yaml`), each run as a tracked
   background job (2 h limit), which keeps the session alive and reports the exit.
 - Lesson: in the cloud session, long jobs must be tracked by the harness; `nohup` is not enough.
+
+## Finding F5-4 (2026-10-29): alpha 17 and 18 valid with 6000 iterations; final polar 11 of 12 valid
+- Cloud container, 4 MPI ranks, same mesh family and thresholds; only `min_iterations: 6000`.
+| alpha | laptop (invalid, stopped at 1e-12) | cloud rerun (6001 it.) | change CL / CD | rerun gates |
+|---|---|---|---|---|
+| 17 | CL 1.684488, CD 0.0303143 (2775 it.) | CL 1.684497, CD 0.0303178 | +0.0006 % / +0.012 % | valid, residual drop 9.4 orders, CL range 1.8e-9 |
+| 18 | CL 1.700652, CD 0.0373238 (3792 it.) | CL 1.700526, CD 0.0373067 | -0.0074 % / -0.046 % | valid, residual drop 9.1 orders, CL range 9.3e-8 |
+- The drift seen in F5-3 was small and the final values are close to the stopped ones; at alpha 18 CL ended
+  slightly LOWER than the laptop value, so the monotonic rise in the last window was not a simple approach from below.
+- Final polar (`scripts/combine_polar.py` -> `runs/naca0012_polar_final/`): alpha 2-18 valid, alpha 0 invalid
+  by the student's decision (I-006). Replaced rows are kept in `polar_superseded.csv`.
+- Still NOT validated against experiment: no reference data in the repo.
