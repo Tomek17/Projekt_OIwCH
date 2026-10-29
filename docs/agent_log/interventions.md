@@ -34,3 +34,5 @@ Format: ID, date, what, why, how long (approx.), category (unblock / redirect / 
   identity and GitHub login (X-014). ~30 min.
 - Decision card: set `gates.convergence.cl_reference_magnitude` (agent proposes 0.1, to be confirmed) or keep
   alpha 0 invalid. Status: OPEN.
+- 2026-10-29 11:39 UTC: CLOSED. The student chose to keep alpha 0 `invalid` (threshold file unchanged). The report
+  describes it as a known limitation of the relative-range gate when CL is near 0.
