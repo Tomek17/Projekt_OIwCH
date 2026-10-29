@@ -1,0 +1,22 @@
+# F5 follow-up: alpha 17 and 18 of naca0012_polar were `invalid` (convergence): the residual reached 1e-12 at
+# 2775 / 3792 iterations while CL was still rising monotonically (F5-5). Same mesh and physics as the polar;
+# only the minimum iteration count is raised so the stabilisation window sits after the slow drift.
+# Thresholds unchanged. Run in the agent cloud container (4 vCPU) so the student's laptop stays free.
+name: naca0012_polar_stall
+airfoil: NACA0012
+geometry_variant: standard_closed_te
+alpha_deg: [17.0, 18.0]
+reynolds: 6.0e6
+mach: 0.15
+turbulence_model: SA
+mesh_level: xxfine
+mesh:
+  source: gmsh
+  target_yplus: 0.5
+  farfield_radius_chords: 100.0
+  bl_thickness_chords: 0.06
+solver:
+  n_procs: 4
+  min_iterations: 6000   # to be confirmed by the gate: unknown whether the drift has settled by then
+required_gates: [mesh_quality, wall_yplus, convergence, physics_flags]
+notes: "Rerun of the two near-stall points with a longer run; the original invalid results stay in runs/naca0012_polar."
