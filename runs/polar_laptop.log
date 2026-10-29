@@ -1,0 +1,222 @@
+start 2026-10-28T16:16:58Z
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0150411s, CPU 0.007493s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 4.17993s, CPU 4.18233s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+00.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+00.00/mesh.su2'
+naca0012_polar/a+00.00: status=invalid CL=-4.51284705e-05 CD=0.008520113058 CM=-6.191793531e-06 iterations=2001 wall=1291.35 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0106735s, CPU 0.011228s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.77337s, CPU 3.95997s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+02.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+02.00/mesh.su2'
+naca0012_polar/a+02.00: status=valid CL=0.2239294677 CD=0.008674061413 CM=-0.000649918603 iterations=2001 wall=1340.82 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0114082s, CPU 0.011887s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.93376s, CPU 4.10706s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+04.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+04.00/mesh.su2'
+naca0012_polar/a+04.00: status=valid CL=0.4468018588 CD=0.009149394438 CM=-0.00139360161 iterations=2001 wall=1290.8 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0109928s, CPU 0.011977s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 4.05288s, CPU 4.24512s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+06.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+06.00/mesh.su2'
+naca0012_polar/a+06.00: status=valid CL=0.6672787976 CD=0.009991535961 CM=-0.002367360924 iterations=2001 wall=1291.21 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0104651s, CPU 0.011417s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.87132s, CPU 4.13883s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+08.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+08.00/mesh.su2'
+naca0012_polar/a+08.00: status=valid CL=0.8839111838 CD=0.01128474208 CM=-0.003677055096 iterations=2001 wall=1280.48 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0106884s, CPU 0.011137s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 4.01318s, CPU 4.16956s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+10.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+10.00/mesh.su2'
+naca0012_polar/a+10.00: status=valid CL=1.093859567 CD=0.01313630891 CM=-0.005595823518 iterations=2001 wall=1316.95 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0109385s, CPU 0.011407s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.90558s, CPU 4.06386s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+12.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+12.00/mesh.su2'
+naca0012_polar/a+12.00: status=valid CL=1.293422723 CD=0.01579194839 CM=-0.008339026591 iterations=2001 wall=1262.24 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0111103s, CPU 0.011111s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.95526s, CPU 4.20627s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+14.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+14.00/mesh.su2'
+naca0012_polar/a+14.00: status=valid CL=1.476574059 CD=0.01965892904 CM=-0.01206936705 iterations=20000 wall=12405.8 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0101473s, CPU 0.010791s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.69458s, CPU 3.91823s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+15.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+15.00/mesh.su2'
+naca0012_polar/a+15.00: status=valid CL=1.558219734 CD=0.02228952426 CM=-0.01435908265 iterations=2115 wall=1310.67 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0102356s, CPU 0.010813s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.7268s, CPU 3.94262s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+16.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+16.00/mesh.su2'
+naca0012_polar/a+16.00: status=valid CL=1.629367213 CD=0.02567040273 CM=-0.01688441735 iterations=2175 wall=1335.89 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0108686s, CPU 0.011519s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.78323s, CPU 4.00756s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+17.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+17.00/mesh.su2'
+naca0012_polar/a+17.00: status=invalid CL=1.684487696 CD=0.03031433736 CM=-0.01936919627 iterations=2775 wall=1719.6 s
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0107865s, CPU 0.00728s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 3.77984s, CPU 4.00299s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar/a+18.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar/a+18.00/mesh.su2'
+naca0012_polar/a+18.00: status=invalid CL=1.700651733 CD=0.03732381705 CM=-0.0226415255 iterations=3792 wall=2353.66 s
+run exit code 1
+mkdir -p failed for path /home/mambauser/.cache/matplotlib: [Errno 13] Permission denied: '/home/mambauser/.cache/matplotlib'
+Matplotlib created a temporary cache directory at /tmp/matplotlib-9kbaxrma because there was an issue with the default path (/home/mambauser/.cache/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+a+00.00: alpha=0.0 CL=-4.51284705e-05 CD=0.008520113058 invalid convergence:fail
+a+02.00: alpha=2.0 CL=0.2239294677 CD=0.008674061413 valid 
+a+04.00: alpha=4.0 CL=0.4468018588 CD=0.009149394438 valid 
+a+06.00: alpha=6.0 CL=0.6672787976 CD=0.009991535961 valid 
+a+08.00: alpha=8.0 CL=0.8839111838 CD=0.01128474208 valid 
+a+10.00: alpha=10.0 CL=1.093859567 CD=0.01313630891 valid 
+a+12.00: alpha=12.0 CL=1.293422723 CD=0.01579194839 valid 
+a+14.00: alpha=14.0 CL=1.476574059 CD=0.01965892904 valid 
+a+15.00: alpha=15.0 CL=1.558219734 CD=0.02228952426 valid 
+a+16.00: alpha=16.0 CL=1.629367213 CD=0.02567040273 valid 
+a+17.00: alpha=17.0 CL=1.684487696 CD=0.03031433736 invalid convergence:fail
+a+18.00: alpha=18.0 CL=1.700651733 CD=0.03732381705 invalid convergence:fail
+wrote runs/naca0012_polar/polar.csv and runs/naca0012_polar/polar.png (no reference data)
+end 2026-10-29T08:18:14Z

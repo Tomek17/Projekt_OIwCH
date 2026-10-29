@@ -1,0 +1,21 @@
+{
+  "experiment": "naca0012_polar",
+  "case": "a+00.00",
+  "alpha_deg": 0.0,
+  "mesh_level": "xxfine",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 1291.35,
+  "n_procs": 8,
+  "CL": -4.51284705e-05,
+  "CD": 0.008520113058,
+  "CM": -6.191793531e-06,
+  "iterations": 2001,
+  "solver_reported_converged": true,
+  "status": "invalid",
+  "status_reasons": [
+    "convergence: FAIL: CL relative range 1.78e-04 > 1e-04"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "generator": "gmsh",
+  "level": "xxfine",
+  "geometry_variant": "standard_closed_te",
+  "options": {
+    "target_yplus": 0.5,
+    "farfield_radius_chords": 100.0,
+    "n_surface_points": 200,
+    "bl_growth_ratio": 1.15,
+    "bl_thickness_chords": 0.06,
+    "farfield_size_chords": 10.0,
+    "le_te_bump": 0.2,
+    "wake_size_chords": 0.05,
+    "wake_length_chords": 10.0,
+    "size_growth_distance_chords": 100.0,
+    "level_scale": 0.3535533905932738,
+    "n_surface_points_eff": 566,
+    "first_cell_height": 7.878721425586891e-07,
+    "bl_growth_ratio_eff": 1.050654505559436,
+    "farfield_size_eff": 3.5355339059327378,
+    "wake_size_eff": 0.01767766952966369
+  },
+  "statistics": {
+    "elements": 319382,
+    "points": 255199,
+    "triangles": 129676,
+    "quads": 189706
+  },
+  "wall_time_s": 4.91
+}
