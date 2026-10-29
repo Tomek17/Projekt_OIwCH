@@ -100,3 +100,13 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | xxfine / xfine / fine | 1501 s / 602 s / 214 s | valid / valid / valid (GCI PASS) |
 | Whole experiment | 2334 s | |
 | Agent errors in this phase | 1 (X-013, repeat of X-012) | |
+
+## F5 polar, student's laptop (Ryzen 7 8745HX, WSL2, 8 MPI ranks), xxfine 319,382 cells
+| Case | Iterations | Wall (SU2 + meshing) | Status |
+|---|---|---|---|
+| alpha 0-12 (7 cases) | 2001 each | 1262-1341 s each (~0.64 s/iteration) | 6 valid, alpha 0 invalid |
+| alpha 14 | 20000 (cap) | 12406 s | valid |
+| alpha 15 / 16 | 2115 / 2175 | 1311 / 1336 s | valid / valid |
+| alpha 17 / 18 | 2775 / 3792 | 1720 / 2354 s | invalid / invalid |
+| Whole experiment | | 16.0 h (16:16 to 08:18 UTC) | 9 valid, 3 invalid |
+| Laptop vs cloud speed | | ~0.64 s/iteration on 8 ranks vs ~1.05 s on 4 vCPU | agent's estimate 20-25 min/angle was close (21-22 min); total estimate 4-6 h was wrong because of alpha 14 |
