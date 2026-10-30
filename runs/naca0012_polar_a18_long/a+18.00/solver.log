@@ -1,0 +1,342 @@
+[565a579e14e7:00030] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00029] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00028] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00027] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+
+-------------------------------------------------------------------------
+|    ___ _   _ ___                                                      |
+|   / __| | | |_  )   Release 8.5.0 "Harrier"                           |
+|   \__ \ |_| |/ /                                                      |
+|   |___/\___//___|   Suite (Computational Fluid Dynamics Code)         |
+|                                                                       |
+-------------------------------------------------------------------------
+| SU2 Project Website: https://su2code.github.io                        |
+|                                                                       |
+| The SU2 Project is maintained by the SU2 Foundation                   |
+| (http://su2foundation.org)                                            |
+-------------------------------------------------------------------------
+| Copyright 2012-2026, SU2 Contributors                                 |
+|                                                                       |
+| SU2 is free software; you can redistribute it and/or                  |
+| modify it under the terms of the GNU Lesser General Public            |
+| License as published by the Free Software Foundation; either          |
+| version 2.1 of the License, or (at your option) any later version.    |
+|                                                                       |
+| SU2 is distributed in the hope that it will be useful,                |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of        |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      |
+| Lesser General Public License for more details.                       |
+|                                                                       |
+| You should have received a copy of the GNU Lesser General Public      |
+| License along with SU2. If not, see <http://www.gnu.org/licenses/>.   |
+-------------------------------------------------------------------------
+[565a579e14e7:00030] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00029] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00027] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+[565a579e14e7:00028] osc_ucx_component.c:375  Error: OSC UCX component priority set inside component query failed 
+ 
+
+Parsing config file for zone 0
+
+----------------- Physical Case Definition ( Zone 0 ) -------------------
+Compressible RANS equations.
+Turbulence model: Spalart-Allmaras-noft2
+Hybrid RANS/LES: No Hybrid RANS/LES
+Mach number: 0.15.
+Angle of attack (AoA): 18 deg, and angle of sideslip (AoS): 0 deg.
+Reynolds number: 6e+06. Reference length 1.
+No restart solution, use the values at infinity (freestream).
+Non-Dimensional simulation (P=1.0, Rho=1.0, T=1.0 at the farfield).
+The reference area is 1 m^2.
+The semi-span will be computed using the max y(3D) value.
+The reference length is 1 m.
+Reference origin for moment evaluation is (0.25, 0, 0).
+Surface(s) where the force coefficients are evaluated: airfoil.
+
+Surface(s) plotted in the output file: airfoil.
+Input mesh file name: mesh.su2
+
+--------------- Space Numerical Integration ( Zone 0 ) ------------------
+Roe (with entropy fix = 0.001) solver for the flow inviscid terms.
+Standard Roe without low-dissipation function.
+Second order integration in space, with slope limiter.
+U-MUSCL reconstruction, with coefficient: 0.5.
+Venkatakrishnan slope-limiting method, with constant: 0.03.
+The reference element size is: 1. 
+Scalar upwind solver for the turbulence model.
+Second order integration in space, with slope limiter.
+No slope-limiting method. 
+Average of gradients with correction (viscous flow terms).
+Average of gradients with correction (viscous turbulence terms).
+Gradient for upwind reconstruction: unweighted Least-Squares.
+Gradient for viscous and source terms: inverse-distance weighted Least-Squares.
+
+--------------- Time Numerical Integration  ( Zone 0 ) ------------------
+Local time stepping (steady state simulation).
+Euler implicit method for the flow equations.
+FGMRES is used for solving the linear system.
+Using a ILU(0) preconditioning.
+Convergence criteria of the linear solver: 1e-10.
+Max number of linear iterations: 20.
+No CFL adaptation.
+Courant-Friedrichs-Lewy number:    1e+03
+Euler implicit time integration for the turbulence model.
+
+------------------ Convergence Criteria  ( Zone 0 ) ---------------------
+Maximum number of solver subiterations: 20000.
+Begin convergence monitoring at iteration 6000.
+Residual minimum value: 1e-12.
+Cauchy series min. value: 1e-10.
+Number of Cauchy elements: 100.
+Begin windowed time average at iteration 0.
+
+-------------------- Output Information ( Zone 0 ) ----------------------
+File writing frequency: 
++------------------------------------+
+|                     File| Frequency|
++------------------------------------+
+|                  RESTART|    100000|
+|                 PARAVIEW|    100000|
+|              SURFACE_CSV|    100000|
++------------------------------------+
+Writing the convergence history file every 1 inner iterations.
+Writing the screen convergence history every 100 inner iterations.
+The tabular file format is CSV (.csv).
+Convergence history file name: history.
+Forces breakdown file name: forces_breakdown.dat.
+Surface file name: surface_flow.
+Volume file name: flow.
+Restart file name: restart_flow.
+
+------------- Config File Boundary Information ( Zone 0 ) ---------------
++-----------------------------------------------------------------------+
+|                        Marker Type|                        Marker Name|
++-----------------------------------------------------------------------+
+|                          Far-field|                           farfield|
++-----------------------------------------------------------------------+
+|                     Heat flux wall|                            airfoil|
++-----------------------------------------------------------------------+
+
+-------------------- Output Preprocessing ( Zone 0 ) --------------------
+
+WARNING: SURFACE_PRESSURE_DROP can only be computed for at least 2 surfaces (outlet, inlet, ...)
+
+Screen output fields: INNER_ITER, RMS_DENSITY, RMS_NU_TILDE, LIFT, DRAG
+History output group(s): ITER, RMS_RES, AERO_COEFF
+Convergence field(s): RMS_DENSITY
+Warning: No (valid) fields chosen for time convergence monitoring. Time convergence monitoring inactive.
+Volume output fields: COORDINATES, SOLUTION, PRIMITIVE
+
+------------------- Geometry Preprocessing ( Zone 0 ) -------------------
+Two dimensional problem.
+255199 grid points before partitioning.
+319382 volume elements before partitioning.
+2 surface markers.
+1130 boundary elements in index 0 (Marker = airfoil).
+180 boundary elements in index 1 (Marker = farfield).
+Executing the partitioning functions.
+Building the graph adjacency structure.
+Calling ParMETIS... graph partitioning complete (1840 edge cuts).
+Distributing ParMETIS coloring.
+Rebalancing vertices.
+Rebalancing volume element connectivity.
+Rebalancing markers and surface elements.
+257986 vertices including ghost points. 
+321222 interior elements including halo cells. 
+130575 triangles.
+190647 quadrilaterals.
+Establishing MPI communication patterns.
+Setting point connectivity.
+Renumbering points (Reverse Cuthill McKee Ordering).
+Recomputing point connectivity.
+Setting element connectivity.
+Checking the numerical grid orientation.
+All volume elements are correctly oriented.
+There has been a re-orientation of 566 LINE surface elements.
+Identifying edges and vertices.
+Setting the control volume structure.
+Area of the computational grid: 31409.6.
+Searching for the closest normal neighbors to the surfaces.
+Storing a mapping from global to local point index.
+Compute the surface curvature.
+Max K: 3719.31. Mean K: 5.88725. Standard deviation K: 103.15.
+Computing mesh quality statistics for the dual control volumes.
++--------------------------------------------------------------+
+|           Mesh Quality Metric|        Minimum|        Maximum|
++--------------------------------------------------------------+
+|    Orthogonality Angle (deg.)|        67.7964|             90|
+|     CV Face Area Aspect Ratio|              1|        5865.52|
+|           CV Sub-Volume Ratio|              1|        2325.23|
++--------------------------------------------------------------+
+Finding max control volume width.
+Communicating number of neighbors.
+Wetted area = 2.03909 m.
+Area projection in the x-plane = 0.120013 m, y-plane = 0.999733 m.
+Max. coordinate in the x-direction = 1 m, y-direction = 0.0600071 m.
+Min. coordinate in the x-direction = 0 m, y-direction = -0.0600071 m.
+Computing wall distances.
+
+-------------------- Solver Preprocessing ( Zone 0 ) --------------------
+Viscous flow: Computing pressure using the ideal gas law
+based on the free-stream temperature and a density computed
+from the Reynolds number.
+Force coefficients computed using free-stream values.
+
+-- Models:
++------------------------------------------------------------------------------+
+|          Viscosity Model|        Conductivity Model|              Fluid Model|
++------------------------------------------------------------------------------+
+|               SUTHERLAND|          CONSTANT_PRANDTL|             STANDARD_AIR|
++------------------------------------------------------------------------------+
+-- Fluid properties:
++------------------------------------------------------------------------------+
+|                  Name|    Dim. value|    Ref. value|      Unit|Non-dim. value|
++------------------------------------------------------------------------------+
+|        Ref. Viscosity|     1.716e-05|       624.034|   N.s/m^2|   2.74985e-08|
+|      Sutherland Temp.|        273.15|           300|         K|        0.9105|
+|     Sutherland Const.|         110.4|           300|         K|         0.368|
++------------------------------------------------------------------------------+
+|        Prandtl (Lam.)|             -|             -|         -|          0.72|
+|       Prandtl (Turb.)|             -|             -|         -|           0.9|
++------------------------------------------------------------------------------+
+|          Gas Constant|       287.058|       287.058|  N.m/kg.K|             1|
+|      Spec. Heat Ratio|             -|             -|         -|           1.4|
++------------------------------------------------------------------------------+
+-- Initial and free-stream conditions:
++------------------------------------------------------------------------------+
+|                  Name|    Dim. value|    Ref. value|      Unit|Non-dim. value|
++------------------------------------------------------------------------------+
+|       Static Pressure|        183127|        183127|        Pa|             1|
+|               Density|       2.12649|       2.12649|    kg/m^3|             1|
+|           Temperature|           300|           300|         K|             1|
+|          Total Energy|        216650|       86117.4|   m^2/s^2|       2.51575|
+|            Velocity-X|       49.5344|       293.458|       m/s|      0.168796|
+|            Velocity-Y|       16.0947|       293.458|       m/s|     0.0548451|
+|    Velocity Magnitude|       52.0836|       293.458|       m/s|      0.177482|
++------------------------------------------------------------------------------+
+|             Viscosity|   1.84592e-05|       624.034|   N.s/m^2|   2.95804e-08|
+|          Conductivity|             -|        179134|   W/m^2.K|             -|
+|     Turb. Kin. Energy|       10.1726|       86117.4|   m^2/s^2|   0.000118125|
+|     Spec. Dissipation|        117188|       293.458|       1/s|       399.335|
++------------------------------------------------------------------------------+
+|           Mach Number|             -|             -|         -|          0.15|
+|       Reynolds Number|             -|             -|         -|         6e+06|
++------------------------------------------------------------------------------+
+Initialize Jacobian structure (Navier-Stokes). MG level: 0.
+Initialize Jacobian structure (SA model).
+
+------------------- Numerics Preprocessing ( Zone 0 ) -------------------
+
+----------------- Integration Preprocessing ( Zone 0 ) ------------------
+
+------------------- Iteration Preprocessing ( Zone 0 ) ------------------
+Euler/Navier-Stokes/RANS fluid iteration.
+
+------------------------------ Begin Solver -----------------------------
+
+Simulation Run using the Single-zone Driver
++----------------------------------------------------------------+
+|  Inner_Iter|    rms[Rho]|     rms[nu]|          CL|          CD|
++----------------------------------------------------------------+
+|           0|   -5.134189|  -11.064673|   13.396978|    6.211213|
+|         100|   -7.837003|   -7.082986|    1.510772|    0.194722|
+|         200|   -7.314324|   -2.802411|    1.037500|    0.254858|
+|         300|   -8.317970|   -2.799174|    0.995446|    0.223193|
+|         400|   -8.048939|   -3.155092|    1.010104|    0.196312|
+|         500|   -8.371525|   -4.362006|    1.042394|    0.171218|
+|         600|   -8.129467|   -6.298263|    1.016589|    0.142109|
+|         700|   -8.647487|   -6.890063|    1.079487|    0.126167|
+|         800|   -8.796118|   -6.993159|    1.179261|    0.119011|
+|         900|   -8.716863|   -7.226109|    1.221689|    0.106854|
+|        1000|   -8.695126|   -7.572517|    1.252017|    0.093689|
+|        1100|   -8.753934|   -7.847051|    1.303974|    0.083090|
+|        1200|   -8.809937|   -8.042865|    1.360476|    0.074045|
+|        1300|   -8.859668|   -8.225702|    1.413602|    0.066201|
+|        1400|   -8.924615|   -8.382612|    1.461907|    0.059569|
+|        1500|   -9.003246|   -8.504629|    1.504729|    0.054037|
+|        1600|   -9.089789|   -8.605042|    1.543782|    0.049712|
+|        1700|   -9.171655|   -8.674909|    1.578413|    0.046387|
+|        1800|   -9.275314|   -8.735666|    1.607310|    0.043838|
+|        1900|   -9.399702|   -8.783934|    1.631041|    0.041976|
+|        2000|   -9.532553|   -8.818950|    1.649441|    0.040620|
+|        2100|   -9.669242|   -8.845802|    1.663434|    0.039649|
+|        2200|   -9.805630|   -8.865227|    1.674068|    0.038966|
+|        2300|   -9.941858|   -8.879830|    1.681779|    0.038474|
+|        2400|  -10.086584|   -8.890590|    1.687279|    0.038125|
+|        2500|  -10.235933|   -8.898095|    1.691159|    0.037880|
+|        2600|  -10.390576|   -8.903277|    1.693916|    0.037708|
+|        2700|  -10.539746|   -8.906805|    1.695870|    0.037588|
+|        2800|  -10.692371|   -8.909110|    1.697250|    0.037504|
+|        2900|  -10.848683|   -8.910715|    1.698223|    0.037445|
+|        3000|  -11.002776|   -8.911918|    1.698907|    0.037404|
+|        3100|  -11.155443|   -8.912741|    1.699388|    0.037375|
+|        3200|  -11.307101|   -8.913288|    1.699727|    0.037354|
+|        3300|  -11.457994|   -8.913678|    1.699965|    0.037340|
+|        3400|  -11.607058|   -8.913956|    1.700132|    0.037330|
+|        3500|  -11.755055|   -8.914153|    1.700250|    0.037323|
+|        3600|  -11.902970|   -8.914286|    1.700332|    0.037318|
+|        3700|  -12.048743|   -8.914376|    1.700390|    0.037315|
+|        3800|  -12.192184|   -8.914440|    1.700431|    0.037312|
+|        3900|  -12.332708|   -8.914484|    1.700459|    0.037311|
+|        4000|  -12.469348|   -8.914515|    1.700479|    0.037309|
+|        4100|  -12.601559|   -8.914537|    1.700493|    0.037309|
+|        4200|  -12.728759|   -8.914553|    1.700503|    0.037308|
+|        4300|  -12.849698|   -8.914564|    1.700510|    0.037308|
+|        4400|  -12.963765|   -8.914571|    1.700515|    0.037307|
+|        4500|  -13.071034|   -8.914576|    1.700518|    0.037307|
+|        4600|  -13.171240|   -8.914580|    1.700520|    0.037307|
+|        4700|  -13.265023|   -8.914583|    1.700522|    0.037307|
+|        4800|  -13.353247|   -8.914584|    1.700523|    0.037307|
+|        4900|  -13.436610|   -8.914586|    1.700524|    0.037307|
+|        5000|  -13.516044|   -8.914587|    1.700524|    0.037307|
+|        5100|  -13.592267|   -8.914587|    1.700525|    0.037307|
+|        5200|  -13.665995|   -8.914588|    1.700525|    0.037307|
+|        5300|  -13.737957|   -8.914588|    1.700525|    0.037307|
+|        5400|  -13.808328|   -8.914588|    1.700525|    0.037307|
+|        5500|  -13.877851|   -8.914588|    1.700526|    0.037307|
+|        5600|  -13.945818|   -8.914588|    1.700526|    0.037307|
+|        5700|  -14.013028|   -8.914588|    1.700526|    0.037307|
+|        5800|  -14.079654|   -8.914588|    1.700526|    0.037307|
+|        5900|  -14.145741|   -8.914588|    1.700526|    0.037307|
+|        6000|  -14.211068|   -8.914588|    1.700526|    0.037307|
+
+----------------------------- Solver Exit -------------------------------
+All convergence criteria satisfied.
++-----------------------------------------------------------------------+
+|      Convergence Field     |     Value    |   Criterion  |  Converged |
++-----------------------------------------------------------------------+
+|                    rms[Rho]|      -14.2111|         < -12|         Yes|
++-----------------------------------------------------------------------+
+-------------------------------------------------------------------------
++-----------------------------------------------------------------------+
+|        File Writing Summary       |              Filename             |
++-----------------------------------------------------------------------+
+|SU2 binary restart                 |restart_flow.dat                   |
+|Paraview                           |flow.vtu                           |
+|CSV file                           |surface_flow.csv                   |
++-----------------------------------------------------------------------+
+
+--------------------------- Finalizing Solver ---------------------------
+Deleted CNumerics container.
+Deleted CIntegration container.
+Deleted CSolver container.
+Deleted CIteration container.
+Deleted CInterface container.
+Deleted CGeometry container.
+Deleted CFreeFormDefBox class.
+Deleted CSurfaceMovement class.
+Deleted CVolumetricMovement class.
+Deleted CConfig container.
+Deleted nInst container.
+Deleted COutput class.
+-------------------------------------------------------------------------
+
+------------------------- Exit Success (SU2_CFD) ------------------------
+

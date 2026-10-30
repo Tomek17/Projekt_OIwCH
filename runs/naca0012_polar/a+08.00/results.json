@@ -1,0 +1,19 @@
+{
+  "experiment": "naca0012_polar",
+  "case": "a+08.00",
+  "alpha_deg": 8.0,
+  "mesh_level": "xxfine",
+  "mach": 0.15,
+  "reynolds": 6000000.0,
+  "turbulence_model": "SA",
+  "solver_exit_code": 0,
+  "wall_time_s": 1280.48,
+  "n_procs": 8,
+  "CL": 0.8839111838,
+  "CD": 0.01128474208,
+  "CM": -0.003677055096,
+  "iterations": 2001,
+  "solver_reported_converged": true,
+  "status": "valid",
+  "status_reasons": []
+}

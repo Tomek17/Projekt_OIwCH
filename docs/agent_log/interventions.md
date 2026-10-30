@@ -28,3 +28,11 @@ Format: ID, date, what, why, how long (approx.), category (unblock / redirect / 
 ## I-005 (2026-10-28): polar run on the student's laptop, stopped and restarted by decision
 - The student chose to run the polar locally (8 cores), reported the alpha 2 failure via screenshots
   (the agent has no live access to the laptop), and chose "stop now, fix, restart" on a decision card.
+
+## I-006 (2026-10-29): polar results transferred by the student; threshold question for alpha 0
+- The agent cannot reach the laptop; the student pushed results to `f5-polar-results` after help with git
+  identity and GitHub login (X-014). ~30 min.
+- Decision card: set `gates.convergence.cl_reference_magnitude` (agent proposes 0.1, to be confirmed) or keep
+  alpha 0 invalid. Status: OPEN.
+- 2026-10-29 11:39 UTC: CLOSED. The student chose to keep alpha 0 `invalid` (threshold file unchanged). The report
+  describes it as a known limitation of the relative-range gate when CL is near 0.

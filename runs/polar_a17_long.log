@@ -1,0 +1,16 @@
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Nurb)
+Info    : [ 20%] Meshing curve 2 (Nurb)
+Info    : [ 30%] Meshing curve 3 (Circle)
+Info    : [ 50%] Meshing curve 4 (Circle)
+Info    : [ 60%] Meshing curve 5 (Circle)
+Info    : [ 80%] Meshing curve 6 (Circle)
+Info    : [ 90%] Meshing curve 7 (Line)
+Info    : Done meshing 1D (Wall 0.0575796s, CPU 0.012646s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 12.9708s, CPU 11.4613s)
+Info    : 258065 nodes 323565 elements
+Info    : Writing '/work/runs/naca0012_polar_a17_long/a+17.00/mesh.su2'...
+Info    : Writing 319382 elements and 255199 nodes
+Info    : Done writing '/work/runs/naca0012_polar_a17_long/a+17.00/mesh.su2'

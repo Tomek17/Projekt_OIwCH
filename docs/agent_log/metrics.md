@@ -100,3 +100,24 @@ Wall-clock times are UTC timestamps from the conversation; effort is not measure
 | xxfine / xfine / fine | 1501 s / 602 s / 214 s | valid / valid / valid (GCI PASS) |
 | Whole experiment | 2334 s | |
 | Agent errors in this phase | 1 (X-013, repeat of X-012) | |
+
+## F5 polar, student's laptop (Ryzen 7 8745HX, WSL2, 8 MPI ranks), xxfine 319,382 cells
+| Case | Iterations | Wall (SU2 + meshing) | Status |
+|---|---|---|---|
+| alpha 0-12 (7 cases) | 2001 each | 1262-1341 s each (~0.64 s/iteration) | 6 valid, alpha 0 invalid |
+| alpha 14 | 20000 (cap) | 12406 s | valid |
+| alpha 15 / 16 | 2115 / 2175 | 1311 / 1336 s | valid / valid |
+| alpha 17 / 18 | 2775 / 3792 | 1720 / 2354 s | invalid / invalid |
+| Whole experiment | | 16.0 h elapsed (16:16 to 08:18 UTC), ~8.3 h of computing | 9 valid, 3 invalid |
+| Idle gap | | alpha 16 started 22:58, finished 07:06 (8.1 h elapsed) but measured 1336 s: the laptop was most likely suspended overnight (not confirmed with the student) | |
+| Laptop vs cloud speed | | ~0.64 s/iteration on 8 ranks vs ~1.05 s on 4 vCPU | agent's estimate 20-25 min/angle was close (21-22 min); total estimate 4-6 h was low: ~8.3 h of computing, mainly alpha 14 (3.4 h at the iteration cap) |
+
+## F5 near-stall reruns, agent cloud container, 4 MPI ranks, xxfine
+| Run | Iterations | Wall (SU2) | Status |
+|---|---|---|---|
+| attempt 001 (alpha 17+18, `nohup`) | 234 | killed with the container (X-015) | archived |
+| alpha 17 | 6001 | 8163 s (1.36 s/iteration) | valid |
+| alpha 18 | 6001 | 8197 s | valid |
+| Agent estimate | | "~1.8 h per angle" from 1.05 s/iteration (F4) | low: 2.27 h; cause unknown (other load in the container?) |
+| Harness | | both tracked jobs hit the 2 h limit; the Docker containers kept running and were awaited with `docker wait` | |
+| Agent errors in this phase | 1 (X-015) | | |

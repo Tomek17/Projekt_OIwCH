@@ -1,0 +1,23 @@
+{
+  "git_commit": "7dd653ff7c16a69b76866d4e55fb07d5d8f4773e",
+  "git_dirty": "false",
+  "image_id": "sha256:bc719615899bf0e41441a55eaa545c91a780ebe6a1dfc3f041aa88a3f91e6796",
+  "host": "LegionTomek",
+  "cpu_count_visible": 16,
+  "python": "3.11.18",
+  "gmsh": "4.15.2",
+  "nacacfd": "0.0.1",
+  "case_dir": "/work/runs/naca0012_polar/a+10.00",
+  "started_utc": "2026-10-28T18:10:37+00:00",
+  "finished_utc": "2026-10-28T18:33:26+00:00",
+  "command": [
+    "mpirun",
+    "-np",
+    "8",
+    "SU2_CFD",
+    "config.cfg"
+  ],
+  "su2": "8.5.0",
+  "mesh_file": "mesh.su2",
+  "mesh_sha256": "8edfd30500d28b104ffccfaf351c93d0b50e06d812e2c66255984180481fa8ba"
+}

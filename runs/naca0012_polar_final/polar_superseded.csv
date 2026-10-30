@@ -1,0 +1,3 @@
+case,alpha_deg,CL,CD,CM,status,not_passed
+naca0012_polar/a+17.00,17.0,1.684487696,0.03031433736,-0.01936919627,invalid,convergence:fail
+naca0012_polar/a+18.00,18.0,1.700651733,0.03732381705,-0.0226415255,invalid,convergence:fail
