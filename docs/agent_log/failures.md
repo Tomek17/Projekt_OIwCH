@@ -305,3 +305,10 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 ## X-016 (2026-10-30): agent worker killed during a Docker run
 - The session's worker process was restarted while `docker run` was starting (exit 137), Docker daemon gone.
   No data lost: the script and the copied inputs were on disk; the run was repeated with the same inputs.
+
+## Finding F5-6 (2026-11-02): dry run of the validation gate: no point passes
+- Dry run (thresholds dict changed in memory only; config file untouched, data from the student's upload with the
+  prepared SOURCE.md): alpha 0-17 FAIL, alpha 18 NOT_RUN (all three Ladson series are past their CL maximum).
+- CL deviation from the band centre +0.010 (alpha 2) .. +0.070 (alpha 17), half-band 0.0014-0.0089.
+  CD at equal CL above the band by 4-25 counts; at alpha 16-17 not enough series for CD.
+- Expected from F5-5; the gate makes the disagreement explicit instead of hiding it in a plot.

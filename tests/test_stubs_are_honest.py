@@ -10,8 +10,6 @@ import pytest
 STUBS = {
     "nacacfd.airfoil.naca": ["naca5_coordinates"],
     "nacacfd.runner.sweep": ["run_sweep"],
-    "nacacfd.postprocess.compare": ["load_reference", "deviations"],
-    "nacacfd.qa.validation": ["check_validation"],
 }
 
 CASES = [(m, f) for m, fs in STUBS.items() for f in fs]

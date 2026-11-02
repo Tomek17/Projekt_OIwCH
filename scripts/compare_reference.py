@@ -1,5 +1,6 @@
 """Compare a computed polar with TMR experimental data files (Tecplot-style .dat with zones), F5.
 
+Preview tool: reads files without the SOURCE.md provenance check (use `nacacfd validate` for the gate).
 Reads only; the reference files are never modified. Reports differences, does NOT set any status:
 the validation tolerances are undefined in config/qa_thresholds.yaml until the student sets them.
 Usage: python scripts/compare_reference.py POLAR_CSV CLCD_LADSON_DAT [CL_GREGORY_DAT] OUT_DIR
@@ -10,35 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-
-def read_zones(path):
-    """Return {zone title: [[floats], ...]} from a TMR .dat file (lines starting with # are comments)."""
-    zones, cur = {}, None
-    for line in Path(path).read_text().splitlines():
-        s = line.strip()
-        if not s or s.startswith("#") or s.lower().startswith("variables"):
-            continue
-        if s.lower().startswith("zone"):
-            cur = s.split("=", 1)[1].strip().strip('"') if "=" in s else s
-            zones[cur] = []
-            continue
-        zones.setdefault(cur, []).append([float(x) for x in s.split()])
-    return zones
-
-
-def interp(xs, ys, x):
-    """Linear interpolation on a monotonic x range; None outside it (no extrapolation)."""
-    pts = sorted(zip(xs, ys))
-    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
-        if x0 <= x <= x1:
-            return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
-    return None
-
-
-def pre_stall(rows):
-    """Rows up to (and including) the CL maximum, so interpolation never crosses the stall drop."""
-    i = max(range(len(rows)), key=lambda k: rows[k][1])
-    return rows[: i + 1]
+from nacacfd.postprocess.compare import interp, pre_stall, read_zones
 
 
 def main(polar_csv, clcd_dat, *rest):

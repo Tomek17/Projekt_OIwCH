@@ -18,10 +18,12 @@ def test_thresholds_load_and_every_gate_has_status(repo_root):
     assert {"mesh_quality", "wall_yplus", "convergence", "gci", "validation", "physics_flags"} <= set(data["gates"])
 
 
-def test_validation_tolerance_is_deliberately_undefined(repo_root):
-    # The tolerance must be chosen after seeing the reference data, not invented up front.
+def test_validation_tolerance_is_not_invented(repo_root):
+    # The tolerance must be chosen by the student after seeing the reference data, not invented up front:
+    # either still undefined, or the experiment-spread mode the student chose on 2026-11-02.
     gate = load_thresholds(repo_root / "config" / "qa_thresholds.yaml")["gates"]["validation"]
-    assert gate["status"] == "undefined" and gate["cl_tolerance"] is None
+    assert gate["cl_tolerance"] is None and gate["cd_tolerance"] is None
+    assert gate["status"] == "undefined" or gate.get("tolerance_mode") == "reference_spread"
 
 
 def _write(tmp_path: Path, text: str) -> Path:

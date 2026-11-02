@@ -128,3 +128,13 @@ Format: ID, date, decision, reasoning, alternatives considered, who decided.
 - Expected effect on existing studies (not yet re-applied): alpha 5 (p 2.46 / 2.11) stays PASS;
   alpha 10 (CL p 4.37) becomes FAIL -> xfine/fine/medium at alpha 10 `invalid`.
 - Not added: a lower bound on p (p well below formal order); possible later, also the student's call.
+
+## D-021 (2026-11-02): validation gate = inside the band of the experimental series
+- Student's choice (decision card): the tolerance comes from the spread of the reference series, not from a number
+  picked after seeing our results. The agent implemented it as "the result must lie inside [min, max] of the
+  series at that point" (|value - band centre| <= spread / 2): CL at equal alpha, CD at equal CL, pre-stall only.
+  Alternative: |value - mean| <= full spread (twice as lenient). Interpretation: to be confirmed by the student.
+- `load_reference` refuses a reference file whose sha256 is not listed in the SOURCE.md next to it, so an edited
+  or swapped data file turns the gate NOT_RUN instead of producing a comparison.
+- Case statuses (valid/invalid from the per-case gates) are NOT changed by `nacacfd validate`; it writes
+  validation.json next to polar.csv. Reason: the polar experiment did not list validation as a required gate.
