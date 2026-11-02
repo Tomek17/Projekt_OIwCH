@@ -36,3 +36,14 @@ Format: ID, date, what, why, how long (approx.), category (unblock / redirect / 
   alpha 0 invalid. Status: OPEN.
 - 2026-10-29 11:39 UTC: CLOSED. The student chose to keep alpha 0 `invalid` (threshold file unchanged). The report
   describes it as a known limitation of the relative-range gate when CL is near 0.
+
+## I-007 (2026-10-30): student supplied the NASA TMR reference data
+- After the agent gave the TMR page URL, the student downloaded and uploaded 4 .dat files unchanged.
+- The agent may not write `data/reference/**`; it prepared the files plus `SOURCE.md` (sha256, provenance) in the
+  project files for the student to commit. Status: OPEN until committed.
+- Decision card: how to set the validation tolerance (agent recommends: spread of the Ladson series). OPEN.
+
+## I-008 (2026-11-02): student chose the validation tolerance rule
+- Decision card: "tolerance from the spread of the Ladson series" (agent's recommendation). The student must still
+  write `tolerance_mode: reference_spread` into the protected `config/qa_thresholds.yaml` and commit the data
+  (`data/reference/`, protected). Until then `nacacfd validate` returns NOT_RUN. Status: OPEN.

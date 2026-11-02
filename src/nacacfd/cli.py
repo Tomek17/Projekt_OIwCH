@@ -1,6 +1,6 @@
 """Command-line entry point: `nacacfd <command> ...`.
 
-Status: `validate-config`, `run` (file meshes) and `qa`, `gci` and `report` implemented; `mesh` is a stub.
+Status: `validate-config`, `run` (file meshes), `qa`, `gci`, `report` and `validate` implemented; `mesh` is a stub.
 """
 
 from __future__ import annotations
@@ -33,6 +33,25 @@ def _report(args: argparse.Namespace) -> int:
         print(f"{r['case']}: alpha={r['alpha_deg']} CL={r['CL']} CD={r['CD']} {r['status']} {r['not_passed']}")
     print(f"wrote {exp_dir / 'polar.csv'} and {exp_dir / 'polar.png'} (no reference data)")
     return 0
+
+
+def _validate(args: argparse.Namespace) -> int:
+    import csv
+
+    from nacacfd.config import load_thresholds
+    from nacacfd.qa.validation import check_validation
+
+    polar_csv = Path(args.target)
+    rows = list(csv.DictReader(polar_csv.open()))
+    results = check_validation(rows, args.reference, load_thresholds())
+    out = polar_csv.with_name("validation.json")
+    out.write_text(json.dumps({"polar": str(polar_csv), "reference": args.reference,
+                               "gates": {c: g.to_dict() for c, g in results.items()}}, indent=2) + "\n")
+    for r in rows:
+        g = results[r["case"]]
+        print(f"{r['case']}: alpha={r['alpha_deg']} case status={r['status']} validation={g.outcome.value} {g.reason}")
+    print(f"wrote {out} (case statuses are not changed by this command)")
+    return int(any(not g.passed for g in results.values()))
 
 
 def _validate_config(args: argparse.Namespace) -> int:
@@ -144,6 +163,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("report", help="build polar.csv and polar.png from runs/<experiment>")
     p.add_argument("target")
     p.set_defaults(func=_report)
+
+    p = sub.add_parser("validate", help="validation gate: compare a polar.csv with a reference file (with SOURCE.md)")
+    p.add_argument("target", help="polar.csv from `nacacfd report` or scripts/combine_polar.py")
+    p.add_argument("--reference", required=True, help="e.g. data/reference/naca0012_ladson/CLCD_Ladson_expdata.dat")
+    p.set_defaults(func=_validate)
 
     for name, help_text in [
         ("mesh", "generate geometry and mesh for an experiment"),

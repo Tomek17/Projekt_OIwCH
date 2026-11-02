@@ -291,3 +291,24 @@ Three levels, sizes scaled by sqrt(2) per level (effective ratios from cell coun
 - Final polar (`scripts/combine_polar.py` -> `runs/naca0012_polar_final/`): alpha 2-18 valid, alpha 0 invalid
   by the student's decision (I-006). Replaced rows are kept in `polar_superseded.csv`.
 - Still NOT validated against experiment: no reference data in the repo.
+
+## Finding F5-5 (2026-10-30): first comparison with Ladson (preview, not a gate)
+- Data: `CLCD_Ladson_expdata.dat` (Ladson, NASA TM 4074; M 0.15, Re 6e6, tripped; 80/120/180 grit), supplied by
+  the student. Script: `scripts/compare_reference.py` (linear interpolation, pre-stall branch only, CD at equal CL).
+- CL: SU2 SA above experiment by +0.017..0.035 for alpha 2-10, growing to +0.06..0.08 at alpha 17.
+  Experiment stalls between 17.1 and 18 deg (CL drops to ~1.0); steady SA RANS shows no stall up to 18 deg.
+- CD at equal CL: SU2 higher by +4..14 counts at low/mid CL, up to ~30 counts at CL 1.3-1.5. The grid
+  uncertainty (GCI CD ~3 %) does not explain this; cause unknown (not investigated yet).
+- Spread between the three Ladson series at our angles: dCL 0.003-0.018, dCD 0.2-18 counts.
+- No validation status set: tolerances in `config/qa_thresholds.yaml` are null (student's decision pending).
+
+## X-016 (2026-10-30): agent worker killed during a Docker run
+- The session's worker process was restarted while `docker run` was starting (exit 137), Docker daemon gone.
+  No data lost: the script and the copied inputs were on disk; the run was repeated with the same inputs.
+
+## Finding F5-6 (2026-11-02): dry run of the validation gate: no point passes
+- Dry run (thresholds dict changed in memory only; config file untouched, data from the student's upload with the
+  prepared SOURCE.md): alpha 0-17 FAIL, alpha 18 NOT_RUN (all three Ladson series are past their CL maximum).
+- CL deviation from the band centre +0.010 (alpha 2) .. +0.070 (alpha 17), half-band 0.0014-0.0089.
+  CD at equal CL above the band by 4-25 counts; at alpha 16-17 not enough series for CD.
+- Expected from F5-5; the gate makes the disagreement explicit instead of hiding it in a plot.
